@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jovan Edric Sumarto — Portfolio</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --bg-49:          #03030a;
+  --surface-49:     rgba(15,15,25,0.4);
+  --border-49:      rgba(255,255,255,0.08);
+  --accent-49:      #00e5ff;
+  --accent-glow-49: rgba(0,229,255,0.15);
+  --text-main-49:   #f8fafc;
+  --text-muted-49:  #94a3b8;
+  --font-heading-49:'Space Grotesk', sans-serif;
+}
+
+body.mode-51 {
+  --bg-49:          #060203 !important;
+  --surface-49:     rgba(20,5,8,0.6) !important;
+  --border-49:      rgba(255,40,40,0.2) !important;
+  --accent-49:      #ff2a2a !important;
+  --accent-glow-49: rgba(255,42,42,0.25) !important;
+  --text-main-49:   #fff0f0 !important;
+  --text-muted-49:  #c97b7b !important;
+  --font-heading-49:'Cinzel', serif !important;
+  cursor: none;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { background-color: var(--bg-49); scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg-49);
+  color: var(--text-main-49);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  transition: background-color 0.6s ease, color 0.5s ease;
+}
+
+::selection { background: var(--accent-49); color: #000; }
+
+.font-cosmic { font-family: var(--font-heading-49); }
+h1,h2,h3,h4,.nav-link { font-family: var(--font-heading-49); }
+
+/* ── SCROLL PROGRESS BAR ── */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-49), rgba(112,0,255,0.8));
+  box-shadow: 0 0 8px var(--accent-49);
+  z-index: 999;
+  transition: background 0.5s, box-shadow 0.5s;
+}
+body.mode-51 #progress-bar {
+  background: linear-gradient(90deg, #ff2a2a, #8b0000);
+  box-shadow: 0 0 8px #ff2a2a;
+}
+
+/* ── LOADING SCREEN ── */
+#loader {
+  position: fixed; inset: 0;
+  background: #03030a;
+  z-index: 9999;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 20px;
+  transition: opacity 0.6s ease;
+}
+#loader.fade-out { opacity: 0; pointer-events: none; }
+
+.loader-ring {
+  width: 60px; height: 60px;
+  border: 2px solid rgba(0,229,255,0.15);
+  border-top-color: #00e5ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loader-text {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: rgba(0,229,255,0.7);
+  text-transform: uppercase;
+  animation: pulse-text 1.2s ease-in-out infinite;
+}
+@keyframes pulse-text {
+  0%,100%{ opacity: 0.4; } 50%{ opacity: 1; }
+}
+
+.loader-bar-wrap {
+  width: 200px; height: 1px;
+  background: rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+.loader-bar-fill {
+  height: 100%;
+  background: #00e5ff;
+  box-shadow: 0 0 8px #00e5ff;
+  animation: loader-fill 1.8s ease-out forwards;
+}
+@keyframes loader-fill { from { width: 0% } to { width: 100% } }
+
+/* ── CUSTOM CURSOR (Mode 51) ── */
+#cursor-51 {
+  display: none;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.05s linear;
+}
+body.mode-51 #cursor-51 { display: block; }
+body.mode-51 * { cursor: none !important; }
+
+/* ── GLITCH FLASH TRANSITION ── */
+@keyframes glitch-flash {
+  0%   { filter: none; }
+  10%  { filter: invert(1) hue-rotate(90deg); transform: skewX(-2deg); }
+  20%  { filter: none; transform: skewX(0); }
+  30%  { filter: brightness(2) saturate(0); }
+  40%  { filter: none; }
+  100% { filter: none; }
+}
+.glitch-transition { animation: glitch-flash 0.45s ease-out forwards; }
+
+/* ════════════════════════════════════
+   BREAK THE SYSTEM — Mode 51 entry
+════════════════════════════════════ */
+
+/* 1. Screen shake */
+@keyframes sys-shake {
+  0%  { transform: translate(0,0) rotate(0deg); }
+  10% { transform: translate(-4px,2px) rotate(-0.3deg); }
+  20% { transform: translate(5px,-3px) rotate(0.4deg); }
+  30% { transform: translate(-5px,4px) rotate(-0.2deg); }
+  40% { transform: translate(4px,-2px) rotate(0.3deg); }
+  50% { transform: translate(-3px,3px) rotate(-0.4deg); }
+  60% { transform: translate(3px,-4px) rotate(0.2deg); }
+  70% { transform: translate(-4px,2px) rotate(-0.3deg); }
+  80% { transform: translate(2px,-2px) rotate(0.1deg); }
+  90% { transform: translate(-1px,1px) rotate(0deg); }
+  100%{ transform: translate(0,0) rotate(0deg); }
+}
+.sys-shake { animation: sys-shake 0.5s ease-out forwards; }
+
+/* 2. Scanline corruption overlay */
+#break-scanlines {
+  position: fixed; inset: 0; pointer-events: none; z-index: 8000;
+  opacity: 0; display: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(255,30,30,0.08) 3px,
+    rgba(255,30,30,0.08) 4px
+  );
+}
+#break-scanlines.active { display: block; }
+@keyframes scanlines-in {
+  0%   { opacity:0; transform: translateY(-100%); }
+  30%  { opacity:1; }
+  70%  { opacity:0.7; transform: translateY(0); }
+  100% { opacity:0; }
+}
+.scanlines-sweep { animation: scanlines-in 0.6s ease-out forwards; }
+
+/* 3. Red flash bloom */
+#break-bloom {
+  position: fixed; inset: 0; pointer-events: none; z-index: 8001;
+  background: radial-gradient(ellipse at center, rgba(180,0,0,0.85) 0%, rgba(60,0,0,0.95) 60%, #000 100%);
+  opacity: 0; display: none;
+}
+#break-bloom.active { display: block; }
+@keyframes bloom-flash {
+  0%   { opacity:0; transform:scale(0.6); }
+  12%  { opacity:1; transform:scale(1); }
+  45%  { opacity:0.7; }
+  100% { opacity:0; }
+}
+.bloom-fire { animation: bloom-flash 0.65s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+/* 4. SVG crack overlay */
+#break-crack {
+  position: fixed; inset: 0; pointer-events: none; z-index: 8002;
+  opacity: 0; display: none;
+}
+#break-crack.active { display: block; }
+@keyframes crack-appear {
+  0%   { opacity:0; transform:scale(0.4); filter:brightness(4) blur(2px); }
+  8%   { opacity:1; transform:scale(1.06); filter:brightness(2) blur(0px); }
+  18%  { opacity:1; transform:scale(1); filter:brightness(1.3); }
+  75%  { opacity:0.9; transform:scale(1); filter:brightness(1); }
+  100% { opacity:0; transform:scale(1.02); filter:brightness(1); }
+}
+.crack-strike { animation: crack-appear 1.1s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+/* 5. Text scramble (handled in JS) */
+.scrambling { font-family: 'Courier New', monospace !important; letter-spacing: 0.05em; }
+
+/* HEAL animation — Mode 49 return */
+@keyframes heal-sweep {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+#break-heal {
+  position: fixed; inset: 0; pointer-events: none; z-index: 8000;
+  background: radial-gradient(ellipse at center, rgba(0,229,255,0.18) 0%, rgba(112,0,255,0.12) 40%, rgba(3,3,10,0.6) 100%);
+  opacity: 0; display: none;
+}
+#break-heal.active { display: block; }
+@keyframes heal-flash {
+  0%   { opacity:0; transform:scale(1.08); filter:blur(4px); }
+  20%  { opacity:0.9; transform:scale(1); filter:blur(0px); }
+  60%  { opacity:0.5; }
+  100% { opacity:0; }
+}
+.heal-fire { animation: heal-flash 1s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+/* ── NEBULAS ── */
+.nebula-container { position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0; }
+.nebula { position:absolute;border-radius:50%;filter:blur(140px);opacity:0.4;animation:float 20s infinite ease-in-out alternate;transition:background 0.8s,opacity 0.8s; }
+
+body:not(.mode-51) .nebula-1 { background:radial-gradient(circle,#7000ff,transparent 70%);width:600px;height:600px;top:-10%;left:-10%; }
+body:not(.mode-51) .nebula-2 { background:radial-gradient(circle,#00e5ff,transparent 70%);width:500px;height:500px;bottom:10%;right:-5%; }
+body:not(.mode-51) .nebula-3 { background:radial-gradient(circle,#ff00c8,transparent 70%);width:400px;height:400px;top:40%;left:40%;opacity:0.2; }
+
+body.mode-51 .nebula-1 { background:radial-gradient(circle,#8b0000,transparent 70%);width:700px;height:700px;top:-10%;left:-10%; }
+body.mode-51 .nebula-2 { background:radial-gradient(circle,#ff2a2a,transparent 70%);width:600px;height:600px;bottom:10%;right:-5%;opacity:0.3; }
+body.mode-51 .nebula-3 { background:radial-gradient(circle,#4a0000,transparent 70%);width:500px;height:500px;top:40%;left:30%;opacity:0.4; }
+
+@keyframes float { 0%{transform:translate(0,0) scale(1)} 50%{transform:translate(50px,30px) scale(1.1)} 100%{transform:translate(-30px,50px) scale(0.9)} }
+
+/* ── STAR CANVAS ── */
+#star-canvas { position:fixed;inset:0;pointer-events:none;z-index:1;transition:filter 0.5s; }
+body.mode-51 #star-canvas { filter:hue-rotate(-50deg) saturate(3) contrast(1.4); }
+
+/* ── GLASS CARD ── */
+.glass-card {
+  background:var(--surface-49);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--border-49);
+  border-radius:20px;
+  box-shadow:0 8px 32px 0 rgba(0,0,0,0.37);
+  transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275),background 0.5s,border-color 0.5s;
+  position:relative;overflow:hidden;
+}
+body.mode-51 .glass-card { border-radius:6px; }
+.glass-card::before { content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);opacity:0;transition:opacity 0.4s; }
+.glass-card:hover { transform:translateY(-8px);border-color:var(--accent-49);box-shadow:0 15px 40px -10px var(--accent-glow-49),0 8px 32px 0 rgba(0,0,0,0.5); }
+.glass-card:hover::before { opacity:1; }
+
+/* Shimmer on hover */
+.glass-card::after {
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.04) 50%,transparent 60%);
+  transform:translateX(-100%);transition:transform 0.6s ease;
+}
+.glass-card:hover::after { transform:translateX(100%); }
+
+/* ── TYPOGRAPHY ── */
+.text-gradient {
+  background:linear-gradient(135deg,#fff 0%,var(--accent-49) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  transition:background 0.5s;
+}
+
+/* ── BUTTONS ── */
+.btn-cosmic {
+  background:linear-gradient(135deg,rgba(0,229,255,0.1),rgba(112,0,255,0.1));
+  border:1px solid rgba(0,229,255,0.3);
+  backdrop-filter:blur(8px);color:#fff;
+  padding:12px 28px;border-radius:30px;
+  font-family:var(--font-heading-49);font-weight:500;font-size:0.9rem;
+  letter-spacing:0.05em;transition:all 0.3s ease;
+  display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+}
+body.mode-51 .btn-cosmic { background:linear-gradient(135deg,rgba(255,42,42,0.15),rgba(74,0,0,0.3));border:1px solid rgba(255,42,42,0.5);border-radius:4px;color:#ffcccc; }
+.btn-cosmic:hover { background:linear-gradient(135deg,var(--accent-glow-49),var(--accent-glow-49));border-color:var(--accent-49);box-shadow:0 0 20px var(--accent-glow-49);transform:translateY(-2px); }
+
+/* ── NAV ── */
+.nav-link { color:var(--text-muted-49);font-size:0.9rem;letter-spacing:0.05em;text-transform:uppercase;transition:color 0.3s,text-shadow 0.3s;position:relative;text-decoration:none; }
+.nav-link::after { content:'';position:absolute;bottom:-4px;left:50%;width:0;height:2px;background:var(--accent-49);transition:all 0.3s ease;transform:translateX(-50%);box-shadow:0 0 10px var(--accent-49); }
+.nav-link:hover { color:#fff;text-shadow:0 0 10px var(--accent-glow-49); }
+.nav-link:hover::after { width:100%; }
+
+/* ── TAGS ── */
+.cosmic-tag { background:rgba(255,255,255,0.05);border:1px solid var(--border-49);padding:4px 12px;border-radius:20px;font-size:0.75rem;color:var(--text-muted-49);transition:all 0.3s; }
+body.mode-51 .cosmic-tag { border-radius:4px; }
+.glass-card:hover .cosmic-tag { background:var(--accent-glow-49);border-color:var(--accent-49);color:var(--accent-49); }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity:0;transform:translateY(40px);transition:opacity 0.8s ease-out,transform 0.8s ease-out; }
+.revealed { opacity:1;transform:translateY(0); }
+
+/* ── INPUTS ── */
+.cosmic-input { background:rgba(0,0,0,0.2);border:1px solid var(--border-49);border-radius:12px;padding:14px 20px;color:white;font-family:'Inter',sans-serif;transition:all 0.3s;width:100%; }
+body.mode-51 .cosmic-input { border-radius:4px;background:rgba(10,2,3,0.6); }
+.cosmic-input:focus { outline:none;border-color:var(--accent-49);background:var(--accent-glow-49);box-shadow:0 0 15px var(--accent-glow-49); }
+
+/* ── ORB ── */
+.cosmic-orb {
+  width:300px;height:300px;border-radius:50%;
+  background:linear-gradient(135deg,#03030a 0%,#0a0a1a 100%);
+  box-shadow:inset -20px -20px 40px rgba(0,0,0,0.8),inset 10px 10px 30px rgba(255,255,255,0.1),0 0 50px var(--accent-glow-49),0 0 100px rgba(112,0,255,0.1);
+  position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  animation:rotate-orb 20s linear infinite;
+  transition:box-shadow 0.6s,background 0.6s,border-radius 0.5s;
+}
+body.mode-51 .cosmic-orb { border-radius:10px;background:linear-gradient(135deg,#050102 0%,#150305 100%);box-shadow:inset -20px -20px 40px rgba(0,0,0,0.9),inset 10px 10px 30px rgba(255,42,42,0.15),0 0 50px rgba(255,42,42,0.3),0 0 100px rgba(139,0,0,0.2); }
+@keyframes rotate-orb { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+
+.orb-ring { position:absolute;width:150%;height:150%;border-radius:50%;border:2px solid transparent;border-top-color:var(--accent-49);border-bottom-color:#7000ff;animation:rotate-ring 10s linear infinite reverse;transition:border-color 0.6s,border-radius 0.5s; }
+body.mode-51 .orb-ring { border-radius:12px;border-top-color:#ff2a2a;border-bottom-color:#8b0000; }
+@keyframes rotate-ring { 0%{transform:rotate(0deg) scale(1) rotateX(60deg)} 50%{transform:rotate(180deg) scale(1.05) rotateX(60deg)} 100%{transform:rotate(360deg) scale(1) rotateX(60deg)} }
+
+/* ── TOGGLE BUTTON ── */
+#duality-toggle {
+  position:fixed;bottom:24px;right:24px;z-index:100;
+  background:rgba(15,15,25,0.85);backdrop-filter:blur(12px);
+  border:1px solid var(--accent-49);color:#fff;
+  padding:12px 20px;border-radius:30px;
+  font-family:var(--font-heading-49);font-size:0.8rem;letter-spacing:0.1em;
+  cursor:pointer;box-shadow:0 0 25px var(--accent-glow-49);
+  display:flex;align-items:center;gap:10px;
+  transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+body.mode-51 #duality-toggle { border-radius:6px;background:rgba(20,5,8,0.9);border-color:#ff2a2a;box-shadow:0 0 30px rgba(255,42,42,0.4); }
+#duality-toggle:hover { transform:scale(1.05);box-shadow:0 0 35px var(--accent-49); }
+
+/* ── PROJECT CARD CLICKABLE ── */
+a.glass-card { text-decoration:none;color:inherit;display:block; }
+
+/* ── SOCIAL LINKS ── */
+.social-link {
+  width:42px;height:42px;border-radius:50%;
+  background:rgba(255,255,255,0.05);border:1px solid var(--border-49);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-muted-49);text-decoration:none;
+  transition:all 0.3s;
+}
+body.mode-51 .social-link { border-radius:6px; }
+.social-link:hover { border-color:var(--accent-49);color:var(--accent-49);box-shadow:0 0 14px var(--accent-glow-49);transform:translateY(-3px); }
+
+/* ── MODE BADGE TOAST ── */
+#mode-toast {
+  position:fixed;top:84px;left:50%;transform:translateX(-50%);
+  font-family:'Space Grotesk',monospace;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;
+  padding:6px 18px;border:1px solid var(--accent-49);
+  background:rgba(3,3,10,0.88);color:var(--accent-49);
+  opacity:0;pointer-events:none;z-index:200;
+  transition:opacity 0.4s,border-color 0.4s,color 0.4s;
+}
+#mode-toast.show { opacity:1; }
+
+/* ── PLAYGROUND (Mode 51) ── */
+#playground { display:none; padding:80px 0; }
+body.mode-51 #playground { display:block; }
+.terminal-card {
+  background:rgba(4,14,6,0.85);border:1px solid rgba(57,255,106,0.15);
+  padding:24px;position:relative;overflow:hidden;
+}
+.terminal-card::before { content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(57,255,106,0.4),transparent); }
+@keyframes cursor-blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+/* Reader's duality: monochrome, quiet contrast, and an ink-like yin-yang core. */
+:root {
+  --bg-49:#090909;
+  --surface-49:rgba(22,22,22,.72);
+  --border-49:rgba(255,255,255,.12);
+  --accent-49:#f2f2f2;
+  --accent-glow-49:rgba(255,255,255,.12);
+  --text-main-49:#f3f3f3;
+  --text-muted-49:#a4a4a4;
+  --font-heading-49:'Space Grotesk',sans-serif;
+}
+body.mode-51 {
+  --bg-49:#f0f0ed !important;
+  --surface-49:rgba(255,255,255,.76) !important;
+  --border-49:rgba(0,0,0,.14) !important;
+  --accent-49:#111 !important;
+  --accent-glow-49:rgba(0,0,0,.1) !important;
+  --text-main-49:#111 !important;
+  --text-muted-49:#555 !important;
+  --font-heading-49:'Space Grotesk',sans-serif !important;
+  cursor:auto;
+}
+body { background-image:radial-gradient(ellipse at 78% 16%,rgba(255,255,255,.045),transparent 38%); }
+body.mode-51 { background-image:radial-gradient(ellipse at 78% 16%,rgba(0,0,0,.055),transparent 38%); }
+#progress-bar,.loader-bar-fill { background:#f2f2f2;box-shadow:none; }
+body.mode-51 #progress-bar { background:#111;box-shadow:none; }
+.loader-ring { border-color:rgba(255,255,255,.15);border-top-color:#eee; }
+.loader-text { color:#ccc; }
+body.mode-51 .loader-ring { border-color:rgba(0,0,0,.12);border-top-color:#111; }
+body.mode-51 .loader-text { color:#333; }
+.nebula { filter:blur(150px);opacity:.12; }
+body:not(.mode-51) .nebula-1,body:not(.mode-51) .nebula-2,body:not(.mode-51) .nebula-3 { background:radial-gradient(circle,#fff,transparent 70%); }
+body.mode-51 .nebula-1,body.mode-51 .nebula-2,body.mode-51 .nebula-3 { background:radial-gradient(circle,#111,transparent 70%); }
+#star-canvas { opacity:.32;filter:grayscale(1); }
+body.mode-51 #star-canvas { filter:grayscale(1); }
+.glass-card { border-radius:4px;background:var(--surface-49);box-shadow:0 12px 36px rgba(0,0,0,.12); }
+.glass-card:hover { transform:translateY(-4px);box-shadow:0 16px 38px var(--accent-glow-49); }
+.glass-card::after { background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.035) 50%,transparent 60%); }
+.text-gradient { background:linear-gradient(120deg,#fff 18%,#777 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+body.mode-51 .text-gradient { background:linear-gradient(120deg,#111 18%,#777 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.btn-cosmic { background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.28);border-radius:3px; }
+body.mode-51 .btn-cosmic { background:rgba(0,0,0,.035);border-color:rgba(0,0,0,.25);color:#111; }
+.btn-cosmic:hover { background:var(--accent-glow-49);box-shadow:none; }
+.cosmic-tag { border-radius:2px; }
+.cosmic-orb { width:320px;height:320px;border-radius:50%;background:radial-gradient(circle at 34% 35%,#f5f5f5 0 3%,#777 3.3% 4%,transparent 4.3%),radial-gradient(circle at 66% 65%,#111 0 3%,#777 3.3% 4%,transparent 4.3%),linear-gradient(90deg,#f2f2f2 0 50%,#101010 50% 100%);box-shadow:0 0 0 1px rgba(255,255,255,.24),0 28px 80px rgba(0,0,0,.35);animation:none; }
+body.mode-51 .cosmic-orb { border-radius:50%;background:radial-gradient(circle at 34% 35%,#111 0 3%,#999 3.3% 4%,transparent 4.3%),radial-gradient(circle at 66% 65%,#f2f2f2 0 3%,#999 3.3% 4%,transparent 4.3%),linear-gradient(90deg,#111 0 50%,#f2f2f2 50% 100%);box-shadow:0 0 0 1px rgba(0,0,0,.18),0 28px 80px rgba(0,0,0,.12); }
+.orb-ring { width:112%;height:112%;border:1px solid rgba(255,255,255,.3);border-radius:50%;border-top-color:rgba(255,255,255,.65);border-bottom-color:rgba(255,255,255,.12);animation:rotate-ring 32s linear infinite; }
+body.mode-51 .orb-ring { border-radius:50%;border-top-color:rgba(0,0,0,.45);border-bottom-color:rgba(0,0,0,.1); }
+#duality-toggle { background:rgba(18,18,18,.9);border:1px solid rgba(255,255,255,.25);border-radius:3px;box-shadow:none; }
+body.mode-51 #duality-toggle { background:rgba(255,255,255,.9);border-color:rgba(0,0,0,.22);box-shadow:none;color:#111; }
+.nav-link::after { box-shadow:none; }
+.social-link { border-radius:3px; }
+.cosmic-input { border-radius:3px; }
+#mode-toast { background:rgba(10,10,10,.92); }
+body.mode-51 #mode-toast { background:rgba(245,245,242,.94); }
+body.mode-51 #mode-toast { color:#111 !important;border-color:rgba(0,0,0,.2) !important; }
+body.mode-51 #main-nav { background:rgba(245,245,242,.78) !important; }
+body.mode-51 #mobile-menu { background:rgba(245,245,242,.96) !important; }
+body.mode-51 #playground * { color:#111 !important; }
+body.mode-51 #playground .terminal-card { color:#111 !important; }
+#break-scanlines { background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,255,255,.08) 3px,rgba(255,255,255,.08) 4px); }
+#break-bloom { background:radial-gradient(ellipse at center,rgba(255,255,255,.72) 0%,rgba(100,100,100,.65) 60%,#000 100%); }
+#break-heal { background:radial-gradient(ellipse at center,rgba(255,255,255,.16) 0%,rgba(120,120,120,.1) 40%,rgba(3,3,3,.6) 100%); }
+.terminal-card { background:rgba(18,18,18,.9);border-color:rgba(255,255,255,.18);color:#eee; }
+.terminal-card::before { background:linear-gradient(90deg,transparent,rgba(255,255,255,.34),transparent); }
+body.mode-51 .terminal-card { background:rgba(255,255,255,.82);border-color:rgba(0,0,0,.16);color:#111; }
+@media(max-width:1023px){.cosmic-orb{width:260px;height:260px;}}
+/* ── MODE 51: Jaehwan — Crimson & Sanctum Gold (World Tree palette) ── */
+body.mode-51 {
+  --bg-49:#060203 !important;
+  --surface-49:rgba(20,5,8,.82) !important;
+  --border-49:rgba(180,30,30,.28) !important;
+  --accent-49:#ff3030 !important;
+  --accent-glow-49:rgba(255,48,48,.22) !important;
+  /* Gold secondary — Sanctuary World Tree */
+  --accent-gold-51:#c8901a !important;
+  --glow-gold-51:rgba(200,144,26,.22) !important;
+  --text-main-49:#fff0e8 !important;
+  --text-muted-49:#c47a60 !important;
+  --font-heading-49:'Cinzel',serif !important;
+  background-image:radial-gradient(ellipse at 78% 16%,rgba(130,0,0,.2),transparent 38%);
+}
+body.mode-51 #progress-bar { background:linear-gradient(90deg,#8b0000,#ff3030,#c8901a);box-shadow:0 0 8px #c8901a; }
+body.mode-51 .loader-ring { border-color:rgba(255,48,48,.18);border-top-color:#ff3030; }
+body.mode-51 .loader-text { color:#ff8a8a; }
+body.mode-51 .loader-bar-fill { background:linear-gradient(90deg,#ff3030,#c8901a);box-shadow:0 0 8px #c8901a; }
+body.mode-51 .nebula { opacity:.28; }
+/* Nebula-1: deep crimson void; Nebula-2: gold ember (Sanctuary); Nebula-3: blood mist */
+body.mode-51 .nebula-1 { background:radial-gradient(circle,#7a0000,transparent 70%); }
+body.mode-51 .nebula-2 { background:radial-gradient(circle,#6b3800,transparent 70%);opacity:.32; }
+body.mode-51 .nebula-3 { background:radial-gradient(circle,#3a0000,transparent 70%); }
+/* Stars: JS handles per-star crimson/gold colors — no blanket filter */
+body.mode-51 #star-canvas { filter:none; }
+body.mode-51 .glass-card { border-radius:6px;background:rgba(20,5,8,.72); }
+/* text-gradient: crimson → amber → gold */
+body.mode-51 .text-gradient { background:linear-gradient(135deg,#ff3030 0%,#e05010 50%,#c8901a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+/* Buttons: gold border + dual glow */
+body.mode-51 .btn-cosmic { background:linear-gradient(135deg,rgba(255,48,48,.12),rgba(200,144,26,.12));border:1px solid rgba(200,144,26,.45);border-radius:4px;color:#ffe8cc; }
+body.mode-51 .btn-cosmic:hover { background:linear-gradient(135deg,rgba(255,48,48,.22),rgba(200,144,26,.22));border-color:#c8901a;box-shadow:0 0 18px rgba(200,144,26,.4),0 0 8px rgba(255,48,48,.3);color:#fff; }
+/* Orb: crimson top ring / gold bottom ring */
+body.mode-51 .cosmic-orb { border-radius:10px;background:linear-gradient(135deg,#050102,#130804);box-shadow:inset -20px -20px 40px rgba(0,0,0,.9),inset 10px 10px 30px rgba(200,144,26,.1),0 0 50px rgba(255,48,48,.28),0 0 90px rgba(200,144,26,.18); }
+body.mode-51 .orb-ring { border-radius:12px;border-top-color:#ff3030;border-bottom-color:#c8901a; }
+body.mode-51 .orb-ring-2 { border-radius:12px;border-left-color:rgba(255,48,48,.3);border-right-color:rgba(200,144,26,.3); }
+/* Toggle: red left glow + gold right glow */
+body.mode-51 #duality-toggle { border-radius:6px;background:rgba(20,5,8,.94);border-color:rgba(200,144,26,.55);box-shadow:-4px 0 20px rgba(255,48,48,.35),4px 0 20px rgba(200,144,26,.35);color:#ffe8cc; }
+body.mode-51 .social-link { border-radius:6px; }
+body.mode-51 #main-nav { background:rgba(6,2,3,.82) !important; }
+body.mode-51 #mobile-menu { background:rgba(6,2,3,.96) !important; }
+body.mode-51 #mode-toast { background:rgba(12,2,3,.96);color:#c8901a !important;border-color:rgba(200,144,26,.5) !important; }
+body.mode-51 #playground * { color:#fff !important; }
+body.mode-51 #playground p[style*="color:#ff2a2a"] { color:#ff4545 !important; }
+body.mode-51 #playground .terminal-card { background:rgba(14,5,6,.92);border-color:rgba(255,48,48,.25);color:#fff !important; }
+/* Nav badge: red-to-gold gradient */
+body.mode-51 #nav-logo-badge { background:linear-gradient(135deg,#ff3030,#8b0000,#c8901a) !important;box-shadow:0 0 15px rgba(255,48,48,.4),0 0 25px rgba(200,144,26,.25) !important;border-radius:6px !important; }
+body:not(.mode-51) #nav-logo-badge { background:#050505 !important;box-shadow:0 0 0 1px rgba(255,255,255,.3) !important;border-radius:50% !important; }
+body.mode-51 #break-bloom { background:radial-gradient(ellipse at center,rgba(180,0,0,.85),rgba(60,0,0,.95) 60%,#000); }
+body.mode-51 #break-heal { background:radial-gradient(ellipse at center,rgba(255,48,48,.18),rgba(120,0,0,.12) 40%,rgba(3,0,0,.7)); }
+body.mode-51 #break-scanlines { background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,30,30,.08) 3px,rgba(255,30,30,.08) 4px); }
+</style>
+</head>
+
+<body>
+
+<!-- ════ LOADER ════ -->
+<div id="loader">
+
+<!-- Break The System overlays -->
+<div id="break-scanlines"></div>
+<div id="break-bloom"></div>
+<div id="break-crack">
+  <svg width="100%" height="100%" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="crack-glow">
+        <feGaussianBlur stdDeviation="2.5" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="crack-glow-soft">
+        <feGaussianBlur stdDeviation="5" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+
+    <!-- Shatter shard fills (dark red semi-transparent) -->
+    <g opacity="0.55">
+      <polygon points="720,450 640,290 580,310 600,420" fill="rgba(120,0,0,0.4)" stroke="none"/>
+      <polygon points="720,450 800,270 860,310 800,410" fill="rgba(100,0,0,0.35)" stroke="none"/>
+      <polygon points="720,450 570,560 530,500 610,470" fill="rgba(110,0,0,0.4)" stroke="none"/>
+      <polygon points="720,450 870,580 910,510 820,480" fill="rgba(90,0,0,0.35)" stroke="none"/>
+      <polygon points="720,450 480,430 500,360 640,380" fill="rgba(80,0,0,0.3)" stroke="none"/>
+      <polygon points="720,450 960,440 940,360 810,390" fill="rgba(80,0,0,0.3)" stroke="none"/>
+      <polygon points="720,450 660,250 700,200 740,300" fill="rgba(130,0,0,0.3)" stroke="none"/>
+      <polygon points="720,450 770,250 810,200 750,310" fill="rgba(120,0,0,0.3)" stroke="none"/>
+      <polygon points="720,450 580,640 540,600 630,550" fill="rgba(100,0,0,0.35)" stroke="none"/>
+      <polygon points="720,450 860,650 900,600 810,555" fill="rgba(90,0,0,0.3)" stroke="none"/>
+    </g>
+
+    <!-- Primary fracture lines (bright, sharp) -->
+    <g filter="url(#crack-glow)" stroke="#ff1a1a" fill="none">
+      <!-- Main fracture arms -->
+      <path d="M720,450 L650,310 L620,200 L610,120" stroke-width="2.8" opacity="0.95"/>
+      <path d="M720,450 L790,300 L830,190 L850,100" stroke-width="2.4" opacity="0.9"/>
+      <path d="M720,450 L580,520 L460,590 L340,670" stroke-width="2.6" opacity="0.92"/>
+      <path d="M720,450 L870,530 L990,600 L1100,670" stroke-width="2.2" opacity="0.88"/>
+      <path d="M720,450 L480,430 L300,415 L120,400" stroke-width="2" opacity="0.85"/>
+      <path d="M720,450 L960,445 L1150,430 L1320,415" stroke-width="2" opacity="0.85"/>
+      <path d="M720,450 L700,280 L680,160" stroke-width="1.5" opacity="0.75"/>
+      <path d="M720,450 L740,280 L760,160" stroke-width="1.5" opacity="0.75"/>
+
+      <!-- Secondary branch cracks -->
+      <path d="M650,310 L600,280 L560,240" stroke-width="1.4" opacity="0.65"/>
+      <path d="M650,310 L620,350 L590,380" stroke-width="1.2" opacity="0.55"/>
+      <path d="M790,300 L840,270 L880,230" stroke-width="1.4" opacity="0.65"/>
+      <path d="M790,300 L820,340 L850,380" stroke-width="1.2" opacity="0.55"/>
+      <path d="M580,520 L550,490 L510,470" stroke-width="1.3" opacity="0.6"/>
+      <path d="M580,520 L540,560 L500,600" stroke-width="1.3" opacity="0.6"/>
+      <path d="M870,530 L910,500 L950,480" stroke-width="1.3" opacity="0.6"/>
+      <path d="M870,530 L900,570 L940,610" stroke-width="1.2" opacity="0.55"/>
+      <path d="M480,430 L460,400 L430,370" stroke-width="1" opacity="0.5"/>
+      <path d="M960,445 L980,415 L1010,385" stroke-width="1" opacity="0.5"/>
+
+      <!-- Tertiary hairline cracks -->
+      <path d="M620,200 L595,175 L570,155" stroke-width="0.8" opacity="0.45"/>
+      <path d="M830,190 L860,165 L885,145" stroke-width="0.8" opacity="0.45"/>
+      <path d="M460,590 L435,615 L410,645" stroke-width="0.8" opacity="0.4"/>
+      <path d="M990,600 L1015,625 L1040,655" stroke-width="0.8" opacity="0.4"/>
+      <path d="M300,415 L280,390 L255,360" stroke-width="0.7" opacity="0.35"/>
+      <path d="M1150,430 L1170,405 L1195,375" stroke-width="0.7" opacity="0.35"/>
+    </g>
+
+    <!-- Glow outer halo (soft) -->
+    <g filter="url(#crack-glow-soft)">
+      <circle cx="720" cy="450" r="80" fill="none" stroke="rgba(255,20,20,0.15)" stroke-width="3"/>
+      <circle cx="720" cy="450" r="40"  fill="none" stroke="rgba(255,40,40,0.25)" stroke-width="2"/>
+    </g>
+
+    <!-- Impact core -->
+    <g filter="url(#crack-glow)">
+      <circle cx="720" cy="450" r="8" fill="rgba(255,100,100,0.9)" stroke="none"/>
+      <circle cx="720" cy="450" r="20" fill="none" stroke="rgba(255,60,60,0.6)" stroke-width="1.5"/>
+    </g>
+  </svg>
+</div>
+<div id="break-heal"></div>
+  <div class="loader-ring"></div>
+  <div class="loader-bar-wrap"><div class="loader-bar-fill"></div></div>
+  <p class="loader-text" id="loader-text">Initializing Scenario...</p>
+</div>
+
+<!-- Custom cursor (Mode 51) -->
+<svg id="cursor-51" width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <line x1="12" y1="2" x2="12" y2="22" stroke="#ff2a2a" stroke-width="1.2"/>
+  <line x1="2" y1="12" x2="22" y2="12" stroke="#ff2a2a" stroke-width="1.2"/>
+  <circle cx="12" cy="12" r="3.5" stroke="#ff2a2a" stroke-width="1.2"/>
+  <circle cx="12" cy="12" r="1" fill="#ff2a2a"/>
+</svg>
+
+<!-- Scroll progress -->
+<div id="progress-bar"></div>
+
+<!-- Mode toast -->
+<div id="mode-toast">[ SCENARIO 49% — THE READER ]</div>
+
+<div class="nebula-container">
+  <div class="nebula nebula-1"></div>
+  <div class="nebula nebula-2"></div>
+  <div class="nebula nebula-3"></div>
+</div>
+
+<!-- Aurora + Void Particles — Mode 49 / Kim Dokja -->
+<canvas id="aurora-canvas" style="position:fixed;inset:0;pointer-events:none;z-index:1;opacity:1;transition:opacity 1.4s ease;"></canvas>
+
+<canvas id="star-canvas"></canvas>
+
+<!-- World Tree background — Mode 51 / Jaehwan Sanctuary -->
+<canvas id="world-tree-canvas" style="position:fixed;inset:0;pointer-events:none;z-index:2;opacity:0;transition:opacity 1.2s ease;"></canvas>
+
+<!-- Dokja Novel Text — Mode 49 / Kim Dokja Star Stream -->
+<canvas id="dokja-text-canvas" style="position:fixed;inset:0;pointer-events:none;z-index:2;opacity:1;transition:opacity 1.2s ease;"></canvas>
+
+<!-- Toggle button -->
+<button id="duality-toggle" onclick="toggleDualityMode()">
+  <i class="fa-solid fa-yin-yang text-xs"></i>
+  <span id="toggle-label">49% — DOKJA</span>
+</button>
+
+<!-- ════ NAV ════ -->
+<header id="main-nav" style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(3,3,10,0.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border-49);transition:background 0.5s,border-color 0.5s;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;height:70px;display:flex;align-items:center;justify-content:space-between;">
+    <a href="#" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+      <div id="nav-logo-badge" style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#f5f5f5 50%,#111 50%);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px rgba(255,255,255,.25);transition:all 0.5s;">
+        <span class="font-cosmic" style="color:white;font-weight:700;font-size:14px;" id="logo-text">49</span>
+      </div>
+      <span class="font-cosmic" style="color:white;font-weight:600;letter-spacing:1px;">Jovan.</span>
+    </a>
+    <nav class="hidden md:flex gap-8">
+      <a href="#about"    class="nav-link">Origin <span style="opacity:.55">/ About Me</span></a>
+      <a href="#projects" class="nav-link">Missions <span style="opacity:.55">/ Projects</span></a>
+      <a href="#contact"  class="nav-link">Transmit <span style="opacity:.55">/ Contact</span></a>
+    </nav>
+    <button id="menu-btn" class="md:hidden text-white p-2"><i class="fa-solid fa-bars text-xl"></i></button>
+  </div>
+  <div id="mobile-menu" class="hidden flex-col gap-4 p-6 border-b border-white/10 absolute w-full backdrop-blur-xl" style="background:rgba(3,3,10,0.95);">
+    <a href="#about"    class="nav-link mobile-link w-full text-center">Origin / About Me</a>
+    <a href="#projects" class="nav-link mobile-link w-full text-center">Missions / Projects</a>
+    <a href="#contact"  class="nav-link mobile-link w-full text-center">Transmit / Contact</a>
+  </div>
+</header>
+
+<main style="max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:10;padding-top:70px;">
+
+  <!-- ════ HERO ════ -->
+  <section id="hero" class="reveal min-h-[90vh] flex items-center py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
+      <div class="flex flex-col gap-6 max-w-2xl">
+        <div class="inline-flex items-center gap-3 bg-white/5 border border-white/10 rounded-full px-4 py-2 w-fit">
+          <span class="w-2 h-2 rounded-full animate-pulse" style="background:var(--accent-49);box-shadow:0 0 8px var(--accent-49);" id="status-dot"></span>
+          <span class="font-cosmic text-xs uppercase tracking-widest" style="color:var(--text-muted-49);" id="status-text">Scenario 49% — The Reader Active</span>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <h1 class="text-5xl md:text-7xl font-bold font-cosmic leading-tight" id="hero-title">
+            Design Beyond<br>
+            <span class="text-gradient" id="hero-subtitle">The Horizon.</span>
+          </h1>
+        </div>
+
+        <p class="text-lg font-light leading-relaxed max-w-lg mt-2" style="color:var(--text-muted-49);" id="hero-desc">
+          Jovan Edric Sumarto — navigating the space between artificial intelligence research, creative UX design, and immersive live events.
+        </p>
+
+        <div class="flex flex-wrap gap-4 mt-6">
+          <a href="#projects" class="btn-cosmic" id="btn-primary">
+            Explore Projects <i class="fa-solid fa-rocket text-xs"></i>
+          </a>
+          <a href="CV_Jovan Edric Sumarto.pdf" download class="btn-cosmic" style="background:transparent;border-color:rgba(255,255,255,0.2);">
+            <i class="fa-solid fa-download text-xs"></i> Download Data
+          </a>
+        </div>
+
+        <!-- Social links -->
+        <div class="flex gap-3 mt-2">
+          <a href="https://www.linkedin.com/in/jovan-sumarto-91b569423?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="social-link" title="LinkedIn">
+            <i class="fa-brands fa-linkedin-in text-sm"></i>
+          </a>
+          <a href="https://github.com/jovanedric" target="_blank" class="social-link" title="GitHub">
+            <i class="fa-brands fa-github text-sm"></i>
+          </a>
+          <a href="https://mail.google.com/mail/?view=cm&to=jovan13sumarto@gmail.com" target="_blank" class="social-link" title="Email">
+            <i class="fa-solid fa-envelope text-sm"></i>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-3 gap-6 pt-10 mt-6 border-t border-white/10">
+          <div>
+            <p class="font-cosmic text-3xl font-bold text-white">3<span style="color:var(--accent-49)">+</span></p>
+            <p class="font-cosmic text-xs uppercase tracking-wider mt-1" style="color:var(--text-muted-49);">Lightyears Exp.</p>
+          </div>
+          <div>
+            <p class="font-cosmic text-3xl font-bold text-white">4</p>
+            <p class="font-cosmic text-xs uppercase tracking-wider mt-1" style="color:var(--text-muted-49);">Key Missions</p>
+          </div>
+          <div>
+            <p class="font-cosmic text-3xl font-bold text-white">26'</p>
+            <p class="font-cosmic text-xs uppercase tracking-wider mt-1" style="color:var(--text-muted-49);">ICISS Presenter</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hidden lg:flex justify-end relative">
+        <div class="cosmic-orb">
+          <div class="orb-ring"></div>
+          <div class="w-full h-full absolute flex items-center justify-center opacity-40" style="animation:rotate-orb 30s linear infinite reverse;">
+            <div class="w-1 h-1 bg-white rounded-full absolute" style="top:20%;left:30%;box-shadow:0 0 5px white;"></div>
+            <div class="w-1.5 h-1.5 rounded-full absolute" style="top:60%;left:70%;background:#93c5fd;box-shadow:0 0 8px #93c5fd;"></div>
+            <div class="w-0.5 h-0.5 bg-white rounded-full absolute" style="top:40%;left:80%;"></div>
+            <div class="rounded-full absolute blur-[1px]" style="width:8px;height:8px;top:70%;left:20%;background:#c084fc;box-shadow:0 0 10px #c084fc;"></div>
+          </div>
+          <img src="jovan-photo.jpg" alt="Jovan" style="position:absolute;width:190px;height:190px;object-fit:cover;object-position:center top;border-radius:50%;mix-blend-mode:luminosity;opacity:.85;filter:contrast(1.1) brightness(0.9);transition:opacity .6s,filter .6s;" onmouseover="this.style.opacity='1';this.style.filter='contrast(1) brightness(1)';this.style.mixBlendMode='normal'" onmouseout="this.style.opacity='.85';this.style.filter='contrast(1.1) brightness(0.9)';this.style.mixBlendMode='luminosity'">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ ABOUT ════ -->
+  <section id="about" class="reveal py-24 relative">
+    <div class="absolute -left-4 top-24 font-cosmic text-[10rem] font-bold leading-none select-none pointer-events-none" style="color:rgba(255,255,255,0.02);z-index:-1;">01</div>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-5 flex flex-col gap-4 pt-4">
+        <div class="font-cosmic text-sm tracking-widest uppercase mb-2" style="color:var(--accent-49);">/// Origin Story</div>
+        <h2 class="text-4xl md:text-5xl font-bold font-cosmic leading-tight" id="about-heading">The Architect of<br>Interfaces.</h2>
+        <p class="leading-relaxed font-light mt-4" style="color:var(--text-muted-49);" id="about-desc">
+          I am an adaptable tech-explorer bridging the gap between deep technical AI capabilities and intuitive, human-centered design. My trajectory spans from mapping neural networks for image classification to directing live audio-reactive visual aesthetics for massive crowds.
+        </p>
+      </div>
+      <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+        <div class="glass-card p-8">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center mb-6" style="background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.2);">
+            <i class="fa-solid fa-wand-magic-sparkles text-xl" style="color:#67e8f9;"></i>
+          </div>
+          <h3 class="font-cosmic text-xl font-semibold mb-3">UI/UX Design</h3>
+          <p class="text-sm leading-relaxed mb-4" style="color:var(--text-muted-49);">Crafting intuitive interfaces that bridge human intention with digital systems.</p>
+          <div class="flex gap-2 flex-wrap"><span class="cosmic-tag">Research</span><span class="cosmic-tag">Prototyping</span></div>
+        </div>
+        <div class="glass-card p-8">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center mb-6" style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);">
+            <i class="fa-solid fa-brain text-xl" style="color:#c084fc;"></i>
+          </div>
+          <h3 class="font-cosmic text-xl font-semibold mb-3">AI Research</h3>
+          <p class="text-sm leading-relaxed mb-4" style="color:var(--text-muted-49);">Training models to understand visual data. Hybrid feature extraction at ICISS 2026.</p>
+          <div class="flex gap-2 flex-wrap"><span class="cosmic-tag">MobileNetV2</span><span class="cosmic-tag">Vision</span></div>
+        </div>
+        <div class="glass-card p-8 sm:col-span-2">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center mb-6" style="background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);">
+            <i class="fa-solid fa-compact-disc text-xl" style="color:#22d3ee;"></i>
+          </div>
+          <h3 class="font-cosmic text-xl font-semibold mb-3">Live Visuals & Events</h3>
+          <p class="text-sm leading-relaxed mb-4" style="color:var(--text-muted-49);">Directing real-time audio-reactive mapping (FFT) in Resolume for large-audience events. MC, logistics, booth management at Comifuro 17 & 18.</p>
+          <div class="flex gap-2 flex-wrap"><span class="cosmic-tag">Resolume</span><span class="cosmic-tag">Live FFT</span><span class="cosmic-tag">Coordination</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ PROJECTS ════ -->
+  <section id="projects" class="reveal py-24 relative">
+    <div class="absolute -left-4 top-24 font-cosmic text-[10rem] font-bold leading-none select-none pointer-events-none" style="color:rgba(255,255,255,0.02);z-index:-1;">02</div>
+    <div class="mb-16">
+      <div class="font-cosmic text-sm tracking-widest uppercase mb-4" style="color:var(--accent-49);">/// Selected Projects</div>
+      <h2 class="text-4xl md:text-5xl font-bold font-cosmic">Professional<br>Portfolio.</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <a href="project-ai.html" target="_blank" class="glass-card group block p-4">
+        <div class="rounded-xl overflow-hidden relative h-48 mb-5">
+          <div class="absolute inset-0 z-10 opacity-60" style="background:linear-gradient(to top,var(--bg-49),transparent);"></div>
+          <div class="absolute top-3 right-3 z-20 font-cosmic" style="color:var(--accent-49);opacity:.8;font-size:.58rem;letter-spacing:.1em;">OPEN ↗</div>
+          <img src="paper research.jpg" alt="AI Research" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110">
+        </div>
+        <div class="px-1 pb-1">
+          <div class="font-cosmic uppercase tracking-widest mb-2" style="color:var(--accent-49);font-size:.56rem;">Feb – Sep 2026 · AI Researcher</div>
+          <h3 class="font-cosmic text-xl font-bold text-white mb-2">AI Image Classification Research</h3>
+          <p class="text-sm leading-relaxed mb-4" style="color:var(--text-muted-49);">Research on dual-stream hybrid feature extraction using MobileNetV2 and EfficientNet-B0, presented at ICISS 2026 at ITB.</p>
+          <div class="flex gap-2 flex-wrap pt-3 border-t border-white/5"><span class="cosmic-tag">AI/ML</span><span class="cosmic-tag">Computer Vision</span><span class="cosmic-tag">Research</span></div>
+        </div>
+      </a>
+
+      <a href="project-mpl.html" target="_blank" class="glass-card group block p-4">
+        <div class="rounded-xl overflow-hidden relative h-48 mb-5">
+          <div class="absolute inset-0 z-10 opacity-60" style="background:linear-gradient(to top,var(--bg-49),transparent);"></div>
+          <div class="absolute top-3 right-3 z-20 font-cosmic" style="color:var(--accent-49);opacity:.8;font-size:.58rem;letter-spacing:.1em;">OPEN ↗</div>
+          <img src="mpl.jpg" alt="MPL" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110">
+        </div>
+        <div class="px-1 pb-1">
+          <div class="font-cosmic uppercase tracking-widest mb-2" style="color:var(--accent-49);font-size:.56rem;">Sep – Oct 2025 · E-Sports Journalist</div>
+          <h3 class="font-cosmic text-xl font-bold text-white mb-2">MPL Esports Media Coverage</h3>
+          <p class="text-sm leading-relaxed mb-4" style="color:var(--text-muted-49);">Conducted on-site interviews with professional players and coaches at MPL ID Season 16 for Media Up Stallion.</p>
+          <div class="flex gap-2 flex-wrap pt-3 border-t border-white/5"><span class="cosmic-tag">Journalism</span><span class="cosmic-tag">E-Sports</span><span class="cosmic-tag">Interviewing</span></div>
+        </div>
+      </a>
+
+      <a href="project-visuals.html" target="_blank" class="glass-card group block p-4">
+        <div class="rounded-xl overflow-hidden relative h-48 mb-5">
+          <div class="absolute inset-0 z-10 opacity-60" style="background:linear-gradient(to top,var(--bg-49),transparent);"></div>
+          <div class="absolute top-3 right-3 z-20 font-cosmic" style="color:var(--accent-49);opacity:.8;font-size:.58rem;letter-spacing:.1em;">OPEN ↗</div>
+          <img src="light and motion.jpeg" alt="Live Visuals" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110">
+        </div>
+        <div class="px-1 pb-1">
+          <div class="font-cosmic uppercase tracking-widest mb-2" style="color:var(--accent-49);font-size:.56rem;">Jan 2024 – Now · Motion Designer</div>
+          <h3 class="font-cosmic text-xl font-bold text-white mb-2">Live Visual & Motion Design</h3>
+          <p class="text-sm leading-relaxed mb-4" style="color:var(--text-muted-49);">Designed and operated real-time, FFT audio-reactive visual systems for large-scale events over 2.5 years.</p>
+          <div class="flex gap-2 flex-wrap pt-3 border-t border-white/5"><span class="cosmic-tag">Resolume</span><span class="cosmic-tag">FFT</span><span class="cosmic-tag">Motion</span></div>
+        </div>
+      </a>
+
+      <a href="project-mc.html" target="_blank" class="glass-card group block p-4">
+        <div class="rounded-xl overflow-hidden relative h-48 mb-5">
+          <div class="absolute inset-0 z-10 opacity-60" style="background:linear-gradient(to top,var(--bg-49),transparent);"></div>
+          <div class="absolute top-3 right-3 z-20 font-cosmic" style="color:var(--accent-49);opacity:.8;font-size:.58rem;letter-spacing:.1em;">OPEN ↗</div>
+          <img src="MC.jpg" alt="MC" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110">
+        </div>
+        <div class="px-1 pb-1">
+          <div class="font-cosmic uppercase tracking-widest mb-2" style="color:var(--accent-49);font-size:.56rem;">Sep 2025 · Master of Ceremony</div>
+          <h3 class="font-cosmic text-xl font-bold text-white mb-2">University Welcome Event Host</h3>
+          <p class="text-sm leading-relaxed mb-4" style="color:var(--text-muted-49);">Hosted a university welcome programme for 90–100 attendees while coordinating delivery with the organising committee.</p>
+          <div class="flex gap-2 flex-wrap pt-3 border-t border-white/5"><span class="cosmic-tag">Public Speaking</span><span class="cosmic-tag">MC</span><span class="cosmic-tag">Events</span></div>
+        </div>
+      </a>
+
+      <a href="project-logistics.html" target="_blank" class="glass-card group block p-4">
+        <div class="rounded-xl overflow-hidden relative h-48 mb-5">
+          <div class="absolute inset-0 z-10 opacity-60" style="background:linear-gradient(to top,var(--bg-49),transparent);"></div>
+          <div class="absolute top-3 right-3 z-20 font-cosmic" style="color:var(--accent-49);opacity:.8;font-size:.58rem;letter-spacing:.1em;">OPEN ↗</div>
+          <img src="welpar.jpg" alt="Logistics" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110">
+        </div>
+        <div class="px-1 pb-1">
+          <div class="font-cosmic uppercase tracking-widest mb-2" style="color:var(--accent-49);font-size:.56rem;">Dec 2023 – May 2024 · Event Coordinator</div>
+          <h3 class="font-cosmic text-xl font-bold text-white mb-2">University Event Logistics Coordination</h3>
+          <p class="text-sm leading-relaxed mb-4" style="color:var(--text-muted-49);">Coordinated logistics for university conferences, seminars, and welcome events, including venues, vendors, and staffing.</p>
+          <div class="flex gap-2 flex-wrap pt-3 border-t border-white/5"><span class="cosmic-tag">Logistics</span><span class="cosmic-tag">Coordination</span><span class="cosmic-tag">Operations</span></div>
+        </div>
+      </a>
+
+      <a href="project-comifuro.html" target="_blank" class="glass-card group block p-4">
+        <div class="rounded-xl overflow-hidden relative h-48 mb-5">
+          <div class="absolute inset-0 z-10 opacity-60" style="background:linear-gradient(to top,var(--bg-49),transparent);"></div>
+          <div class="absolute top-3 right-3 z-20 font-cosmic" style="color:var(--accent-49);opacity:.8;font-size:.58rem;letter-spacing:.1em;">OPEN ↗</div>
+          <img src="Comifuro.jpg" alt="Comifuro" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110">
+        </div>
+        <div class="px-1 pb-1">
+          <div class="font-cosmic uppercase tracking-widest mb-2" style="color:var(--accent-49);font-size:.56rem;">Dec 2024 & May 2025 · Sales Assistant</div>
+          <h3 class="font-cosmic text-xl font-bold text-white mb-2">Comifuro 17 & 18</h3>
+          <p class="text-sm leading-relaxed mb-4" style="color:var(--text-muted-49);">Managed merchandise booth operations and customer engagement at Indonesia's largest pop-culture convention.</p>
+          <div class="flex gap-2 flex-wrap pt-3 border-t border-white/5"><span class="cosmic-tag">Sales</span><span class="cosmic-tag">Booth Mgmt</span><span class="cosmic-tag">Comifuro</span></div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ════ PLAYGROUND (Mode 51 only) ════ -->
+  <section id="playground" class="reveal relative">
+    <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(255,42,42,0.35),transparent);margin-bottom:64px;"></div>
+    <div class="mb-12">
+      <div class="font-cosmic text-sm tracking-widest uppercase mb-4" style="color:#ff2a2a;font-size:.58rem;">/// PLAYGROUND</div>
+      <h2 class="text-4xl font-bold font-cosmic" style="color:#fff0f0;">The Other<br>51%.</h2>
+      <p class="mt-4 text-sm leading-relaxed max-w-md" style="color:#c97b7b;">Stuff that doesn't fit a resume but makes me, me.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="terminal-card">
+        <p style="font-family:'Courier New',monospace;font-size:.55rem;letter-spacing:.2em;color:#39FF6A;margin-bottom:12px;">SYS.AUDIO</p>
+        <h3 style="font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:#fff0f0;margin-bottom:8px;">Live Visuals</h3>
+        <p style="font-size:.75rem;color:#c97b7b;line-height:1.7;">FFT-reactive in Resolume. Real crowd, real pressure, real-time.</p>
+      </div>
+      <div class="terminal-card">
+        <p style="font-family:'Courier New',monospace;font-size:.55rem;letter-spacing:.2em;color:#ff2a2a;margin-bottom:12px;">SYS.GAME</p>
+        <h3 style="font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:#fff0f0;margin-bottom:8px;">Valorant // Ranked</h3>
+        <p style="font-size:.75rem;color:#c97b7b;line-height:1.7;">Pattern recognition, split-second calls, comms under pressure.</p>
+      </div>
+      <div class="terminal-card">
+        <p style="font-family:'Courier New',monospace;font-size:.55rem;letter-spacing:.2em;color:#ff2a2a;margin-bottom:12px;">SYS.IRL</p>
+        <h3 style="font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:#fff0f0;margin-bottom:8px;">Comifuro Booth</h3>
+        <p style="font-size:.75rem;color:#c97b7b;line-height:1.7;">Merch sales, crowd flow, logistics at Indonesia's biggest anime event.</p>
+      </div>
+      <div class="terminal-card" style="font-family:'Courier New',monospace;">
+        <p style="font-size:.55rem;letter-spacing:.2em;color:#ff2a2a;margin-bottom:12px;">SYS.TERMINAL</p>
+        <div style="font-size:.7rem;line-height:2;color:#c97b7b;">
+          <p><span style="color:#ff2a2a;">&gt;</span> whoami</p>
+          <p style="color:#fff0f0;">designer/researcher/vj</p>
+          <p><span style="color:#ff2a2a;">&gt;</span> cat motto.txt</p>
+          <p style="color:#fff0f0;">"build things that feel alive."</p>
+          <p><span style="color:#ff2a2a;">&gt;</span> <span style="animation:cursor-blink 1s steps(1) infinite;display:inline-block;">█</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ CONTACT ════ -->
+  <section id="contact" class="reveal py-24 relative">
+    <div class="absolute -left-4 top-24 font-cosmic text-[10rem] font-bold leading-none select-none pointer-events-none" style="color:rgba(255,255,255,0.02);z-index:-1;">03</div>
+    <div class="glass-card p-10 md:p-16 relative overflow-hidden">
+      <div class="grid grid-cols-1 gap-16 relative z-10">
+        <div>
+          <div class="font-cosmic text-sm tracking-widest uppercase mb-4" style="color:var(--accent-49);">/// Secure Channel</div>
+          <h2 class="text-4xl md:text-5xl font-bold font-cosmic mb-6">Establish<br>Connection.</h2>
+          <p class="text-sm leading-relaxed mb-10 max-w-sm" style="color:var(--text-muted-49);">Whether it's a new mission, collaboration, or just a signal across the void — comms are always open.</p>
+          <div class="flex flex-col gap-6">
+            <a href="https://mail.google.com/mail/?view=cm&to=jovan13sumarto@gmail.com" target="_blank" class="flex items-center gap-4 transition-colors" style="color:rgba(255,255,255,.8);text-decoration:none;">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);">
+                <i class="fa-solid fa-envelope text-sm" style="color:var(--accent-49);"></i>
+              </div>
+              <span class="font-cosmic tracking-wide text-sm">jovan13sumarto@gmail.com</span>
+            </a>
+            <a href="tel:082310934263" class="flex items-center gap-4 transition-colors" style="color:rgba(255,255,255,.8);text-decoration:none;">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);">
+                <i class="fa-solid fa-phone text-sm" style="color:var(--accent-49);"></i>
+              </div>
+              <span class="font-cosmic tracking-wide text-sm">0823-1093-4263</span>
+            </a>
+          </div>
+          <!-- Social row -->
+          <div class="flex gap-3 mt-10">
+            <a href="https://www.linkedin.com/in/jovan-sumarto-91b569423?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="social-link"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
+            <a href="https://github.com/jovanedric"      target="_blank" class="social-link"><i class="fa-brands fa-github text-sm"></i></a>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer style="border-top:1px solid rgba(255,255,255,.05);padding:32px 0;text-align:center;position:relative;z-index:10;background:var(--bg-49);transition:background .5s;">
+  <p class="font-cosmic text-xs tracking-widest uppercase" style="color:rgba(255,255,255,.2);">
+    Design & Code © 2026 Jovan Edric Sumarto &nbsp;·&nbsp; Operating in Deep Space.
+  </p>
+</footer>
+
+<script>
+/* ════ LOADER ════ */
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  const msgs = ['Initializing Scenario...','Loading Star Stream...','Calibrating Reality...','System Online.'];
+  let i = 0;
+  const lt = document.getElementById('loader-text');
+  const iv = setInterval(() => {
+    i++;
+    if(i < msgs.length) lt.textContent = msgs[i];
+    else {
+      clearInterval(iv);
+      setTimeout(() => {
+        loader.classList.add('fade-out');
+        setTimeout(() => loader.style.display = 'none', 700);
+      }, 300);
+    }
+  }, 420);
+});
+
+/* ════ SCROLL PROGRESS ════ */
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('progress-bar').style.width = (scrollTop / docHeight * 100) + '%';
+});
+
+/* ════ MOBILE MENU ════ */
+document.getElementById('menu-btn').addEventListener('click', () => {
+  const m = document.getElementById('mobile-menu');
+  m.classList.toggle('hidden'); m.classList.toggle('flex');
+});
+document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => {
+  const m = document.getElementById('mobile-menu');
+  m.classList.add('hidden'); m.classList.remove('flex');
+}));
+
+/* ════ SCROLL REVEAL ════ */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('revealed'); obs.unobserve(en.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* ════ CUSTOM CURSOR ════ */
+const cur = document.getElementById('cursor-51');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+});
+
+/* ════ DUALITY TOGGLE — BREAK THE SYSTEM ════ */
+let isMode51 = false;
+let isTransitioning = false;
+
+// Text scramble engine
+function scrambleText(el, finalText, duration) {
+  const chars = 'ア イ ウ エ オ カ キ ク ケ コ ▓▒░█▄▀■□◆◇★☆!@#$%^&*01';
+  const frames = Math.floor(duration / 40);
+  let frame = 0;
+  el.classList.add('scrambling');
+  const iv = setInterval(() => {
+    frame++;
+    const progress = frame / frames;
+    let out = '';
+    for (let i = 0; i < finalText.length; i++) {
+      if (finalText[i] === '<' ) {
+        // skip html tags — pass through
+        const end = finalText.indexOf('>', i);
+        if(end !== -1){ out += finalText.slice(i, end+1); i = end; continue; }
+      }
+      if (i < finalText.length * progress) {
+        out += finalText[i];
+      } else {
+        out += chars[Math.floor(Math.random() * chars.length)];
+      }
+    }
+    el.innerHTML = out;
+    if (frame >= frames) {
+      clearInterval(iv);
+      el.innerHTML = finalText;
+      el.classList.remove('scrambling');
+    }
+  }, 40);
+}
+
+function applyMode51Content() {
+  const lt  = document.getElementById('logo-text');
+  const tl  = document.getElementById('toggle-label');
+  const logo= document.getElementById('nav-logo-badge');
+  const st  = document.getElementById('status-text');
+  const ht  = document.getElementById('hero-title');
+  const ah  = document.getElementById('about-heading');
+  const ad  = document.getElementById('about-desc');
+  const hd  = document.getElementById('hero-desc');
+  const toast = document.getElementById('mode-toast');
+
+  document.body.classList.add('mode-51');
+  lt.textContent = '51';
+  tl.textContent = '51% — JAEHWAN';
+  logo.style.background    = 'linear-gradient(135deg,#ff3030,#8b0000,#c8901a)';
+  logo.style.boxShadow     = '0 0 15px rgba(255,48,48,.45),0 0 25px rgba(200,144,26,.25)';
+  logo.style.borderRadius  = '6px';
+  st.textContent = 'Scenario 51% — Sanctuary Breaker Active';
+
+  scrambleText(ht,  'Destroying The<br><span class="text-gradient">False System.</span>', 600);
+  scrambleText(ah,  'The Tower<br>Breaker.', 500);
+  hd.textContent = 'Jovan Edric Sumarto — rejecting simulated scenarios, cutting through illusion, standing alone in the 51% abyss beneath the World Tree.';
+  ad.textContent = 'When the scenario ends and the readers leave, the 51% remains alone in the dark tower. I break through constraints, forging code and visuals with absolute willpower.';
+
+  toast.style.borderColor = 'rgba(200,144,26,.5)';
+  toast.style.color       = '#c8901a';
+  toast.textContent       = '[ SCENARIO 51% — SANCTUARY AWAKENED ]';
+
+  /* Show World Tree, hide Dokja text */
+  startWorldTree();
+  document.getElementById('world-tree-canvas').style.opacity = '1';
+  stopDokjaText();
+  document.getElementById('dokja-text-canvas').style.opacity = '0';
+  stopAurora();
+  document.getElementById('aurora-canvas').style.opacity = '0';
+}
+
+function applyMode49Content() {
+  const lt  = document.getElementById('logo-text');
+  const tl  = document.getElementById('toggle-label');
+  const logo= document.getElementById('nav-logo-badge');
+  const st  = document.getElementById('status-text');
+  const ht  = document.getElementById('hero-title');
+  const ah  = document.getElementById('about-heading');
+  const ad  = document.getElementById('about-desc');
+  const hd  = document.getElementById('hero-desc');
+  const toast = document.getElementById('mode-toast');
+
+  document.body.classList.remove('mode-51');
+  lt.textContent = '49';
+  tl.textContent = '49% — DOKJA';
+  logo.style.background   = '#050505';
+  logo.style.boxShadow    = '0 0 0 1px rgba(255,255,255,.3)';
+  logo.style.borderRadius = '50%';
+  st.textContent = 'Scenario 49% — The Reader Active';
+
+  scrambleText(ht, 'Design Beyond<br><span class="text-gradient">The Horizon.</span>', 500);
+  scrambleText(ah, 'The Architect of<br>Interfaces.', 400);
+  hd.textContent = 'Jovan Edric Sumarto — navigating the space between artificial intelligence research, creative UX design, and immersive live events.';
+  ad.textContent = 'I am an adaptable tech-explorer bridging the gap between deep technical AI capabilities and intuitive, human-centered design.';
+
+  toast.style.borderColor = 'rgba(255,255,255,.25)';
+  toast.style.color       = '#eee';
+  toast.textContent       = '[ SCENARIO 49% — THE READER ]';
+
+  /* Hide World Tree, show Dokja text */
+  stopWorldTree();
+  document.getElementById('world-tree-canvas').style.opacity = '0';
+  startDokjaText();
+  document.getElementById('dokja-text-canvas').style.opacity = '1';
+  startAurora();
+  document.getElementById('aurora-canvas').style.opacity = '1';
+}
+
+function breakTheSystem(callback) {
+  const body      = document.body;
+  const scanlines = document.getElementById('break-scanlines');
+  const bloom     = document.getElementById('break-bloom');
+  const crack     = document.getElementById('break-crack');
+
+  // Phase 1 (0ms): screen shake
+  body.classList.add('sys-shake');
+
+  // Phase 2 (80ms): scanline corruption sweeps down
+  setTimeout(() => {
+    scanlines.classList.add('active');
+    void scanlines.offsetWidth; // reflow
+    scanlines.classList.add('scanlines-sweep');
+  }, 80);
+
+  // Phase 3 (200ms): red bloom from center
+  setTimeout(() => {
+    bloom.classList.add('active');
+    void bloom.offsetWidth;
+    bloom.classList.add('bloom-fire');
+  }, 200);
+
+  // Phase 4 (280ms): cracks explode outward
+  setTimeout(() => {
+    crack.classList.add('active');
+    void crack.offsetWidth;
+    crack.classList.add('crack-strike');
+  }, 280);
+
+  // Phase 5 (500ms): apply mode change WHILE crack is showing
+  setTimeout(() => {
+    callback();
+  }, 500);
+
+  // Phase 6 (1200ms): cleanup all overlays
+  setTimeout(() => {
+    body.classList.remove('sys-shake');
+    [scanlines, bloom, crack].forEach(el => {
+      el.classList.remove('active','scanlines-sweep','bloom-fire','crack-strike');
+    });
+    isTransitioning = false;
+  }, 1200);
+}
+
+function healTheSystem(callback) {
+  const body = document.body;
+  const heal = document.getElementById('break-heal');
+
+  body.classList.add('sys-shake');
+  setTimeout(() => {
+    heal.classList.add('active');
+    void heal.offsetWidth;
+    heal.classList.add('heal-fire');
+    callback();
+  }, 150);
+  setTimeout(() => {
+    body.classList.remove('sys-shake');
+    heal.classList.remove('active','heal-fire');
+    isTransitioning = false;
+  }, 900);
+}
+
+function toggleDualityMode() {
+  if (isTransitioning) return;
+  isTransitioning = true;
+  isMode51 = !isMode51;
+
+  const toast = document.getElementById('mode-toast');
+
+  if (isMode51) {
+    breakTheSystem(() => {
+      applyMode51Content();
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    });
+  } else {
+    healTheSystem(() => {
+      applyMode49Content();
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    });
+  }
+}
+
+/* ════ STARFIELD WITH MOUSE PARALLAX ════ */
+(function(){
+  const canvas = document.getElementById('star-canvas');
+  const ctx    = canvas.getContext('2d');
+  let width, height, stars = [];
+  let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+
+  window.addEventListener('mousemove', e => {
+    mouseX = (e.clientX - width/2) * 0.05;
+    mouseY = (e.clientY - height/2) * 0.05;
+  });
+
+  function resize(){
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', () => { resize(); initStars(); });
+  resize();
+
+  /* Color palettes per mode:
+     mode-49: white/ice-blue/amber mix (yin-yang)
+     mode-51: crimson/gold/ember (Sanctuary World Tree) */
+  const PAL49 = [[255,255,255],[200,235,255],[255,240,200],[240,192,96],[180,200,255]];
+  const PAL51 = [[255,80,60],[220,40,20],[200,144,26],[255,180,60],[160,20,10]];
+
+  function initStars(){
+    stars = [];
+    const count = window.innerWidth < 768 ? 200 : 350;
+    for(let i=0;i<count;i++){
+      const layer = Math.random(); const z = layer*3+1;
+      stars.push({
+        x: Math.random()*width*1.2 - width*.1,
+        y: Math.random()*height*1.2 - height*.1,
+        z, baseR: (Math.random()*.8+.2)*(layer+.5),
+        alpha: Math.random()*.5+.2,
+        twinkleSpeed: Math.random()*.02+.005,
+        twinklePhase: Math.random()*Math.PI*2,
+        palIdx: Math.floor(Math.random()*5)
+      });
+    }
+  }
+  initStars();
+
+  function render(){
+    ctx.clearRect(0,0,width,height);
+    targetX += (mouseX - targetX) * .1;
+    targetY += (mouseY - targetY) * .1;
+    const m51 = document.body.classList.contains('mode-51');
+    const pal = m51 ? PAL51 : PAL49;
+
+    /* ── Mode 49 only: draw faint constellation lines between nearby stars ── */
+    if (!m51) {
+      const visible = stars.map(s => ({
+        px: s.x - targetX*s.z,
+        py: s.y - targetY*s.z,
+        z:  s.z
+      }));
+      ctx.save();
+      for (let i = 0; i < visible.length; i++) {
+        for (let j = i+1; j < visible.length; j++) {
+          const dx = visible[i].px - visible[j].px;
+          const dy = visible[i].py - visible[j].py;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          /* only connect close mid-layer stars, keep it sparse */
+          if (dist < 90 && visible[i].z > 1.2 && visible[j].z > 1.2) {
+            const lineAlpha = (1 - dist/90) * 0.045; /* max ~4.5% opacity */
+            ctx.beginPath();
+            ctx.moveTo(visible[i].px, visible[i].py);
+            ctx.lineTo(visible[j].px, visible[j].py);
+            /* cold yin blue tint */
+            ctx.strokeStyle = `rgba(160,220,255,${lineAlpha})`;
+            ctx.lineWidth   = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+      ctx.restore();
+    }
+
+    stars.forEach(s => {
+      s.twinklePhase += s.twinkleSpeed;
+      const a = s.alpha * (.5 + Math.sin(s.twinklePhase)*.5);
+      const px = s.x - targetX*s.z, py = s.y - targetY*s.z;
+      const [r,g,b] = pal[s.palIdx];
+      ctx.beginPath(); ctx.arc(px,py,s.baseR,0,Math.PI*2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${a})`;
+      if(s.z>2.5){
+        ctx.shadowBlur = 5;
+        ctx.shadowColor = m51 ? `rgba(${r},${g},${b},.8)` : 'rgba(255,255,255,.8)';
+      } else { ctx.shadowBlur=0; }
+      ctx.fill(); ctx.shadowBlur=0;
+    });
+    requestAnimationFrame(render);
+  }
+  render();
+})();
+
+/* ══════════════════════════════════════════════
+   WORLD TREE — Sanctuary background (Mode 51)
+   Fraktal pohon dari bawah tengah ke atas,
+   trunk=crimson, cabang atas=gold
+══════════════════════════════════════════════ */
+function drawWorldTree() {
+  const canvas = document.getElementById('world-tree-canvas');
+  const ctx    = canvas.getContext('2d');
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+
+  /* Trunk base radial glow — deep red from bottom */
+  const trunkGrad = ctx.createRadialGradient(W*.5,H,0, W*.5,H, H*.45);
+  trunkGrad.addColorStop(0,   'rgba(180,30,10,.18)');
+  trunkGrad.addColorStop(0.4, 'rgba(120,10,5,.10)');
+  trunkGrad.addColorStop(1,   'transparent');
+  ctx.fillStyle = trunkGrad;
+  ctx.fillRect(0,0,W,H);
+
+  /* Crown glow — gold at top */
+  const crownGrad = ctx.createRadialGradient(W*.5,H*.05,0, W*.5,H*.05, H*.38);
+  crownGrad.addColorStop(0,   'rgba(200,144,26,.09)');
+  crownGrad.addColorStop(0.5, 'rgba(160,80,10,.05)');
+  crownGrad.addColorStop(1,   'transparent');
+  ctx.fillStyle = crownGrad;
+  ctx.fillRect(0,0,W,H);
+
+  /* Recursive branch — root=crimson, tips=gold */
+  function branch(x, y, angle, len, depth, lineW, alpha) {
+    if (depth === 0 || len < 2) return;
+    const x2 = x + Math.cos(angle)*len;
+    const y2 = y + Math.sin(angle)*len;
+    const t  = depth / 11; /* 1=root,0=tip */
+    const r  = Math.round(255*t + 200*(1-t));
+    const g  = Math.round(48 *t + 144*(1-t));
+    const b  = Math.round(20 *t + 26 *(1-t));
+
+    ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x2,y2);
+    ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`;
+    ctx.lineWidth   = lineW;
+    if (lineW > 2) {
+      ctx.shadowColor = `rgba(${r},${g},${b},.4)`;
+      ctx.shadowBlur  = lineW*2.5;
+    } else { ctx.shadowBlur = 0; }
+    ctx.stroke();
+
+    const spread   = 0.38 + (11-depth)*0.018;
+    const lenDecay = 0.68 + Math.random()*0.05;
+    const jitter   = (Math.random()-0.5)*0.18;
+    branch(x2,y2, angle-spread+jitter, len*lenDecay, depth-1, lineW*.68, alpha*.94);
+    branch(x2,y2, angle+spread+jitter, len*lenDecay, depth-1, lineW*.68, alpha*.94);
+    if (depth > 5 && Math.random() > 0.6)
+      branch(x2,y2, angle+(Math.random()-.5)*.5, len*lenDecay*.7, depth-2, lineW*.5, alpha*.7);
+  }
+
+  ctx.shadowBlur = 0;
+  const trunkH = H * 0.38;
+  const trunkW = Math.min(W*0.012, 10);
+  branch(W*.5,   H+10, -Math.PI/2,       trunkH,     11, trunkW,     0.88);
+  branch(W*.5 - W*.04, H+10, -Math.PI/2+0.12, trunkH*.72, 9, trunkW*.55, 0.45);
+  branch(W*.5 + W*.04, H+10, -Math.PI/2-0.12, trunkH*.72, 9, trunkW*.55, 0.45);
+
+  /* Ground fade */
+  const rootGrad = ctx.createLinearGradient(0,H-H*.12,0,H);
+  rootGrad.addColorStop(0,'rgba(6,2,3,0)');
+  rootGrad.addColorStop(1,'rgba(6,2,3,.85)');
+  ctx.fillStyle = rootGrad;
+  ctx.fillRect(0,H-H*.12,W,H*.12);
+  ctx.shadowBlur = 0;
+}
+
+function startWorldTree() {
+  stopWorldTree();
+  drawWorldTree();
+  window.addEventListener('resize', drawWorldTree);
+}
+
+function stopWorldTree() {
+  window.removeEventListener('resize', drawWorldTree);
+  const c = document.getElementById('world-tree-canvas');
+  c.getContext('2d').clearRect(0,0,c.width,c.height);
+}
+
+/* ══════════════════════════════════════════════
+   AURORA + VOID PARTICLES — Kim Dokja Mode 49
+   Horizontal aurora beams wave perlahan di
+   upper screen (cold blue → violet → warm amber),
+   plus void dust particles melayang ke atas.
+   Semua off di mode 51.
+══════════════════════════════════════════════ */
+let auroraRAF = null;
+
+function startAurora() {
+  stopAurora();
+  const canvas = document.getElementById('aurora-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W = canvas.width  = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+
+  /* ── Aurora beam definitions ── */
+  /* Each beam: y position (% of H), wave amplitude, wave speed, phase offset, color stops */
+  const beams = [
+    { yRatio: 0.12, amp: 38, speed: 0.00055, phase: 0,           alpha: 0.07,
+      stops: ['rgba(112,0,255,0)', 'rgba(126,207,255,0.18)', 'rgba(112,0,255,0)'] },
+    { yRatio: 0.19, amp: 28, speed: 0.00038, phase: Math.PI*.7,  alpha: 0.055,
+      stops: ['rgba(0,229,255,0)', 'rgba(180,100,255,0.14)', 'rgba(0,229,255,0)'] },
+    { yRatio: 0.28, amp: 50, speed: 0.00062, phase: Math.PI*1.3, alpha: 0.045,
+      stops: ['rgba(200,150,255,0)', 'rgba(126,207,255,0.10)', 'rgba(240,192,96,0.06)', 'rgba(200,150,255,0)'] },
+    { yRatio: 0.08, amp: 22, speed: 0.00030, phase: Math.PI*2.1, alpha: 0.035,
+      stops: ['rgba(0,200,255,0)', 'rgba(240,192,96,0.09)', 'rgba(0,200,255,0)'] },
+  ];
+
+  /* ── Void dust particles ── */
+  function makeParticles() {
+    const count = Math.floor(W / 12);
+    return Array.from({ length: count }, () => ({
+      x:     Math.random() * W,
+      y:     Math.random() * H,
+      vy:    -(Math.random() * 0.28 + 0.06),
+      vx:    (Math.random() - 0.5) * 0.08,
+      r:     Math.random() * 1.2 + 0.3,
+      alpha: Math.random() * 0.18 + 0.04,
+      phase: Math.random() * Math.PI * 2,
+      phaseSpeed: Math.random() * 0.008 + 0.003,
+      /* color: 80% icy blue, 15% violet, 5% warm amber */
+      hue:   Math.random() < 0.80 ? 0 : (Math.random() < 0.75 ? 1 : 2),
+    }));
+  }
+
+  const PARTICLE_COLORS = [
+    [160, 230, 255], /* ice blue  */
+    [180, 120, 255], /* violet    */
+    [240, 200, 100], /* warm amber — rare */
+  ];
+
+  let particles = makeParticles();
+  let t = 0;
+
+  function onResize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    particles = makeParticles();
+  }
+  window._auroraResizeHandler = onResize;
+  window.addEventListener('resize', onResize);
+
+  function loop() {
+    /* only draw in mode 49 */
+    if (document.body.classList.contains('mode-51')) {
+      ctx.clearRect(0, 0, W, H);
+      auroraRAF = requestAnimationFrame(loop);
+      return;
+    }
+
+    ctx.clearRect(0, 0, W, H);
+    t++;
+
+    /* ── Draw aurora beams ── */
+    beams.forEach(beam => {
+      const y = beam.yRatio * H + Math.sin(t * beam.speed + beam.phase) * beam.amp;
+      const thickness = H * 0.09; /* beam height: 9% of screen */
+
+      const grad = ctx.createLinearGradient(0, y - thickness, 0, y + thickness);
+      /* outer fade */
+      grad.addColorStop(0, 'rgba(0,0,0,0)');
+      /* inner glow — use beam's color stops */
+      const stops = beam.stops;
+      stops.forEach((c, i) => grad.addColorStop(0.1 + (i / (stops.length - 1)) * 0.8, c));
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+
+      /* horizontal shimmer: each beam warps slightly along X */
+      ctx.save();
+      ctx.globalAlpha = beam.alpha * (0.7 + Math.sin(t * beam.speed * 0.6 + beam.phase) * 0.3);
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      /* draw a wavy horizontal path */
+      const segments = 40;
+      for (let i = 0; i <= segments; i++) {
+        const px = (i / segments) * W;
+        const waveY = y
+          + Math.sin(i * 0.22 + t * beam.speed * 8 + beam.phase) * (beam.amp * 0.35)
+          + Math.sin(i * 0.08 + t * beam.speed * 4) * (beam.amp * 0.15);
+        i === 0 ? ctx.moveTo(px, waveY) : ctx.lineTo(px, waveY);
+      }
+      /* close the beam shape with thickness */
+      for (let i = segments; i >= 0; i--) {
+        const px = (i / segments) * W;
+        const waveY = y
+          + Math.sin(i * 0.22 + t * beam.speed * 8 + beam.phase) * (beam.amp * 0.35)
+          + Math.sin(i * 0.08 + t * beam.speed * 4) * (beam.amp * 0.15)
+          + thickness;
+        ctx.lineTo(px, waveY);
+      }
+      ctx.closePath();
+      ctx.fillStyle = grad;
+      ctx.filter = 'blur(18px)';
+      ctx.fill();
+      ctx.filter = 'none';
+      ctx.globalAlpha = 1;
+      ctx.restore();
+    });
+
+    /* ── Draw void dust particles ── */
+    particles.forEach(p => {
+      p.phase += p.phaseSpeed;
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.y < -4)  p.y = H + 2;
+      if (p.x < -4)  p.x = W + 2;
+      if (p.x > W+4) p.x = -2;
+
+      const a = p.alpha * (0.5 + Math.sin(p.phase) * 0.5);
+      const [r, g, b] = PARTICLE_COLORS[p.hue];
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${a})`;
+      ctx.fill();
+    });
+
+    auroraRAF = requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+function stopAurora() {
+  if (auroraRAF) { cancelAnimationFrame(auroraRAF); auroraRAF = null; }
+  if (window._auroraResizeHandler) {
+    window.removeEventListener('resize', window._auroraResizeHandler);
+    window._auroraResizeHandler = null;
+  }
+  const canvas = document.getElementById('aurora-canvas');
+  if (canvas) canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+}
+
+/* ══════════════════════════════════════════════
+   DOKJA NOVEL TEXT — Kim Dokja Star Stream
+   Floating fragments dari novel ORV yang drift
+   perlahan, sangat transparan (3-5%), warna
+   ice-blue. Hanya aktif di mode 49.
+══════════════════════════════════════════════ */
+let dokjaTextRAF = null;
+
+const NOVEL_FRAGMENTS = [
+  '「 Star Stream 」',
+  'Reading the Future',
+  '[ Scenario 1-1 ]',
+  '...the probability diverges',
+  '「 Omniscient Reader 」',
+  '[ System Message ]',
+  'Regression confirmed.',
+  'The story continues.',
+  '...only I know the ending',
+  '「 Kim Dokja 」',
+  '[ Constellation: Secretive Plotter ]',
+  'a reader who became a character',
+  '...written between the lines',
+  '[ Bookmark: pg. 3149 ]',
+  'the scenario has already begun',
+  '「 Three Ways to Survive 」',
+  '...the probability is 0.01%',
+  '[ Incarnation detected ]',
+  'every choice leaves a trace',
+  '「 Ways of Survival 」',
+  '...I have read this before',
+  '[ Story fragment recovered ]',
+  'the void speaks in silence',
+  '...Dokja-ssi.',
+  '[ Scenario: in progress ]',
+];
+
+function initDokjaParticles(W, H) {
+  const particles = [];
+  const count = Math.floor(W / 80); /* ~14–20 fragments depending on screen */
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      text:    NOVEL_FRAGMENTS[Math.floor(Math.random() * NOVEL_FRAGMENTS.length)],
+      x:       Math.random() * W,
+      y:       Math.random() * H,
+      vx:      (Math.random() - 0.5) * 0.18, /* very slow horizontal drift */
+      vy:      -(Math.random() * 0.12 + 0.04), /* slow upward float */
+      alpha:   Math.random() * 0.028 + 0.012, /* 1.2% – 4% opacity */
+      size:    Math.random() * 3 + 9,          /* 9-12px */
+      phase:   Math.random() * Math.PI * 2,
+      phaseSpeed: Math.random() * 0.004 + 0.002,
+    });
+  }
+  return particles;
+}
+
+function startDokjaText() {
+  stopDokjaText();
+  const canvas = document.getElementById('dokja-text-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W = canvas.width  = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+  let particles = initDokjaParticles(W, H);
+
+  function onResize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    particles = initDokjaParticles(W, H);
+  }
+  window._dokjaResizeHandler = onResize;
+  window.addEventListener('resize', onResize);
+
+  function loop() {
+    /* only run in mode 49 */
+    if (document.body.classList.contains('mode-51')) {
+      ctx.clearRect(0, 0, W, H);
+      dokjaTextRAF = requestAnimationFrame(loop);
+      return;
+    }
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.font = `300 ${particles[0]?.size || 10}px 'Space Grotesk', sans-serif`;
+
+    particles.forEach(p => {
+      /* gentle pulse */
+      p.phase += p.phaseSpeed;
+      const pulseAlpha = p.alpha * (0.6 + Math.sin(p.phase) * 0.4);
+
+      ctx.save();
+      ctx.font = `300 ${p.size}px 'Space Grotesk', sans-serif`;
+      ctx.fillStyle = `rgba(180, 230, 255, ${pulseAlpha})`;
+      ctx.fillText(p.text, p.x, p.y);
+      ctx.restore();
+
+      /* drift */
+      p.x += p.vx;
+      p.y += p.vy;
+
+      /* wrap around edges */
+      if (p.y < -30)  p.y = H + 10;
+      if (p.x < -200) p.x = W + 20;
+      if (p.x > W+20) p.x = -200;
+    });
+
+    dokjaTextRAF = requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+function stopDokjaText() {
+  if (dokjaTextRAF) { cancelAnimationFrame(dokjaTextRAF); dokjaTextRAF = null; }
+  if (window._dokjaResizeHandler) {
+    window.removeEventListener('resize', window._dokjaResizeHandler);
+    window._dokjaResizeHandler = null;
+  }
+  const canvas = document.getElementById('dokja-text-canvas');
+  if (canvas) canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+}
+
+/* Auto-start Dokja text on load (default mode is 49) */
+window.addEventListener('load', () => {
+  startDokjaText();
+  startAurora();
+});
+</script>
+</body>
+</html>
