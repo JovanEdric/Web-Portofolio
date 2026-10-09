@@ -875,16 +875,6 @@ body.mode-51 #break-scanlines { background:repeating-linear-gradient(0deg,transp
         <h3 style="font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:#fff0f0;margin-bottom:8px;">Comifuro Booth</h3>
         <p style="font-size:.75rem;color:#c97b7b;line-height:1.7;">Merch sales, crowd flow, logistics at Indonesia's biggest anime event.</p>
       </div>
-      <div class="terminal-card" style="font-family:'Courier New',monospace;">
-        <p style="font-size:.55rem;letter-spacing:.2em;color:#ff2a2a;margin-bottom:12px;">SYS.TERMINAL</p>
-        <div style="font-size:.7rem;line-height:2;color:#c97b7b;">
-          <p><span style="color:#ff2a2a;">&gt;</span> whoami</p>
-          <p style="color:#fff0f0;">designer/researcher/vj</p>
-          <p><span style="color:#ff2a2a;">&gt;</span> cat motto.txt</p>
-          <p style="color:#fff0f0;">"build things that feel alive."</p>
-          <p><span style="color:#ff2a2a;">&gt;</span> <span style="animation:cursor-blink 1s steps(1) infinite;display:inline-block;">█</span></p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -1202,7 +1192,7 @@ function toggleDualityMode() {
 
   function initStars(){
     stars = [];
-    const count = window.innerWidth < 768 ? 200 : 350;
+    const count = window.innerWidth < 768 ? 55 : 100;
     for(let i=0;i<count;i++){
       const layer = Math.random(); const z = layer*3+1;
       stars.push({
@@ -1218,7 +1208,10 @@ function toggleDualityMode() {
   }
   initStars();
 
-  function render(){
+  let lastStarFrame = 0;
+  function render(now){
+    if (now - lastStarFrame < 33) { requestAnimationFrame(render); return; }
+    lastStarFrame = now;
     ctx.clearRect(0,0,width,height);
     targetX += (mouseX - targetX) * .1;
     targetY += (mouseY - targetY) * .1;
@@ -1269,7 +1262,7 @@ function toggleDualityMode() {
     });
     requestAnimationFrame(render);
   }
-  render();
+  render(performance.now());
 })();
 
 /* ══════════════════════════════════════════════
@@ -1388,7 +1381,7 @@ function startAurora() {
 
   /* ── Void dust particles ── */
   function makeParticles() {
-    const count = Math.floor(W / 12);
+    const count = Math.min(80, Math.floor(W / 24));
     return Array.from({ length: count }, () => ({
       x:     Math.random() * W,
       y:     Math.random() * H,
@@ -1420,7 +1413,13 @@ function startAurora() {
   window._auroraResizeHandler = onResize;
   window.addEventListener('resize', onResize);
 
-  function loop() {
+  let lastAuroraFrame = 0;
+  function loop(now) {
+    if (now - lastAuroraFrame < 33) {
+      auroraRAF = requestAnimationFrame(loop);
+      return;
+    }
+    lastAuroraFrame = now;
     /* only draw in mode 49 */
     if (document.body.classList.contains('mode-51')) {
       ctx.clearRect(0, 0, W, H);
@@ -1495,7 +1494,7 @@ function startAurora() {
 
     auroraRAF = requestAnimationFrame(loop);
   }
-  loop();
+  loop(performance.now());
 }
 
 function stopAurora() {
@@ -1579,7 +1578,13 @@ function startDokjaText() {
   window._dokjaResizeHandler = onResize;
   window.addEventListener('resize', onResize);
 
-  function loop() {
+  let lastDokjaFrame = 0;
+  function loop(now) {
+    if (now - lastDokjaFrame < 33) {
+      dokjaTextRAF = requestAnimationFrame(loop);
+      return;
+    }
+    lastDokjaFrame = now;
     /* only run in mode 49 */
     if (document.body.classList.contains('mode-51')) {
       ctx.clearRect(0, 0, W, H);
@@ -1613,7 +1618,7 @@ function startDokjaText() {
 
     dokjaTextRAF = requestAnimationFrame(loop);
   }
-  loop();
+  loop(performance.now());
 }
 
 function stopDokjaText() {
