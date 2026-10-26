@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>University Event Logistics Coordination — Jovan Edric Sumarto</title>
+<title>Live Visual & Motion Design — Jovan Edric Sumarto</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -114,6 +114,70 @@ body.mode-51 .system-line span:last-child{color:#c8901a;}
   .neb { animation: none; filter: blur(60px); }
 }
 @media (prefers-reduced-motion: reduce) { .neb { animation: none; } .gl49 { animation: none !important; } }
+
+/* ════════════════════════════════════════════════════════════
+   EKSPERIMEN: COLOR CLASH (Mode 51 / Jaehwan) — sama dengan index.html
+   Merah-oren dominan, penyerang tetap: cyan beracun + magenta.
+   Yang nabrak hanya layer dekoratif; teks isi tetap terbaca.
+   Untuk membatalkan: hapus blok ini sampai "END CLASH".
+════════════════════════════════════════════════════════════ */
+body.mode-51 { --clash-a:#00f0ff; --clash-b:#ff00aa; }
+body.mode-51 ::selection { background:var(--clash-a); color:#000; }
+
+body.mode-51 #prog {
+  background:linear-gradient(90deg,#ff3030 0 62%,var(--clash-a) 62% 78%,var(--clash-b) 78% 100%);
+  box-shadow:0 0 10px rgba(0,240,255,.6);
+}
+
+/* Judul: chromatic split statis (HP), glitch berkala (desktop) */
+body.mode-51 .gl49 { animation:none; text-shadow:2px 0 rgba(0,240,255,.75),-2px 0 rgba(255,0,170,.7); }
+@media (hover:hover) and (min-width:769px) {
+  @keyframes clash-glitch {
+    0%,86%,100% { text-shadow:2px 0 rgba(0,240,255,.75),-2px 0 rgba(255,0,170,.7); }
+    88% { text-shadow:7px 0 rgba(0,240,255,.95),-6px 0 rgba(255,0,170,.9); }
+    90% { text-shadow:-5px 1px rgba(0,240,255,.95),5px -1px rgba(255,0,170,.9); }
+    92% { text-shadow:3px 0 #b6ff00,-3px 0 rgba(255,0,170,.9); }
+    94% { text-shadow:2px 0 rgba(0,240,255,.75),-2px 0 rgba(255,0,170,.7); }
+  }
+  body.mode-51 .gl49 { animation:clash-glitch 4.5s steps(1) infinite; }
+}
+
+/* Kartu kaca: garis atas potongan keras merah | cyan | magenta */
+body.mode-51 .glass { position:relative; overflow:hidden; }
+body.mode-51 .glass::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px; pointer-events:none;
+  background:linear-gradient(90deg,#ff3030 0 58%,var(--clash-a) 58% 80%,var(--clash-b) 80% 100%);
+}
+body.mode-51 .tag { border-left:2px solid var(--clash-a); }
+
+/* Kotak Impact: bayangan keras magenta */
+body.mode-51 main section[style*="border:1px solid var(--accent)"] { box-shadow:6px 6px 0 rgba(255,0,170,.45); }
+
+/* Tombol (Back / IEEE): hover = bayangan keras cyan */
+body.mode-51 main a[style*="border:1px solid var(--accent)"]:hover {
+  border-color:var(--clash-a) !important;
+  box-shadow:4px 4px 0 var(--clash-a),-2px -2px 0 rgba(255,0,170,.7) !important;
+}
+
+/* Label sistem */
+body.mode-51 .scenario-code::after { color:var(--clash-a); }
+
+/* Toggle */
+body.mode-51 #toggle { border-color:var(--clash-b); box-shadow:-4px 0 18px rgba(255,48,48,.45),4px 0 18px rgba(0,240,255,.45); }
+
+/* Nebula kedua "bocor" jadi cyan gelap */
+body.mode-51 .n2 { background:radial-gradient(circle,#00525a,transparent 70%); opacity:.25; }
+
+/* Retakan transisi: chromatic aberration */
+#frac.on svg { filter:drop-shadow(5px 0 0 rgba(0,240,255,.55)) drop-shadow(-5px 0 0 rgba(255,0,170,.55)); }
+
+/* KETERBACAAN: teks yang jatuh di atas World Tree dapat halo gelap;
+   di HP pohonnya diredupkan supaya tidak bersaing dengan teks. */
+body.mode-51 main p, body.mode-51 .scenario-code, body.mode-51 .system-line {
+  text-shadow:0 1px 2px #000,0 0 12px rgba(0,0,0,.9);
+}
+@media (max-width:768px) { body.mode-51 #world-tree-canvas { opacity:.6 !important; } }
+/* ═══════════════════════════ END CLASH ═══════════════════════════ */
 </style>
 </head>
 <body>
@@ -153,7 +217,7 @@ body.mode-51 .system-line span:last-child{color:#c8901a;}
     <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--muted);font-family:var(--heading);font-size:.8rem;letter-spacing:.08em;transition:color .3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">
       <i class="fa-solid fa-arrow-left text-xs"></i> Back to Portfolio
     </a>
-    <span style="font-family:var(--heading);font-size:.7rem;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;opacity:.7;">OPERATIONS / LOGISTICS</span>
+    <span style="font-family:var(--heading);font-size:.7rem;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;opacity:.7;">MOTION / LIVE EVENTS</span>
   </div>
 </header>
 
@@ -162,21 +226,21 @@ body.mode-51 .system-line span:last-child{color:#c8901a;}
   <!-- HERO -->
   <section class="reveal" style="padding:40px 0 60px;">
     <div style="margin-bottom:32px;">
-      <div style="font-family:var(--heading);font-size:.6rem;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:12px;">Dec 2023 – May 2024 &nbsp;·&nbsp; Event Coordinator</div>
-      <div class="scenario-code"><span>SCENARIO 05 // OPERATIONS ARCHIVE</span></div>
-      <h1 class="gl49" style="font-size:clamp(2rem,5vw,3.5rem);font-weight:700;line-height:1.1;color:#f0f4f8;" id="htitle">University Event Logistics Coordination</h1>
-      <div class="system-line"><span>RECORD STATUS</span><span>COMPLETE</span></div>
+      <div style="font-family:var(--heading);font-size:.6rem;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:12px;">January 2024 – Now &nbsp;·&nbsp; Visual & Motion Designer</div>
+      <div class="scenario-code"><span>SCENARIO 03 // VISUAL ARCHIVE</span></div>
+      <h1 class="gl49" style="font-size:clamp(2rem,5vw,3.5rem);font-weight:700;line-height:1.1;color:#f0f4f8;" id="htitle">Live Visual & Motion Design</h1>
+      <div class="system-line"><span>RECORD STATUS</span><span>ACTIVE</span></div>
     </div>
     <div style="width:100%;height:420px;border-radius:16px;overflow:hidden;position:relative;">
       <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 40%);z-index:1;pointer-events:none;"></div>
-      <img src="welpar.jpg" alt="University Event Logistics Coordination" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;filter:brightness(.75) saturate(.9);">
+      <img src="light and motion.jpeg" alt="Live Visual & Motion Design" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;filter:brightness(.75) saturate(.9);">
     </div>
   </section>
 
   <!-- ABOUT -->
   <section class="reveal glass" style="padding:32px;margin-bottom:24px;">
     <div style="font-family:var(--heading);font-size:.58rem;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:14px;">// About The Project</div>
-    <p style="color:var(--muted);line-height:1.9;font-size:.92rem;" id="about-txt">Planned and executed logistical operations for university conferences, seminars, and student welcome events of varying scale.</p>
+    <p style="color:var(--muted);line-height:1.9;font-size:.92rem;" id="about-txt">Delivered real-time visual and motion-graphics operations for live events, creating cohesive audience experiences through timely visual transitions during music and speaking sessions.</p>
   </section>
 
   <!-- CONTRIBUTIONS -->
@@ -184,16 +248,16 @@ body.mode-51 .system-line span:last-child{color:#c8901a;}
     <div style="font-family:var(--heading);font-size:.58rem;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;">// My Contribution</div>
     <div style="display:flex;flex-direction:column;gap:14px;">
       <div class="glass" style="padding:22px;">
-        <h3 style="font-family:var(--heading);font-size:.95rem;font-weight:600;color:#f0f4f8;margin-bottom:8px;">On-Site Operations</h3>
-        <p style="color:var(--muted);font-size:.85rem;line-height:1.8;">Managed on-site operations, including venue arrangements and coordination with technical and catering providers.</p>
+        <h3 style="font-family:var(--heading);font-size:.95rem;font-weight:600;color:#f0f4f8;margin-bottom:8px;">Audio Analysis</h3>
+        <p style="color:var(--muted);font-size:.85rem;line-height:1.8;">Analysed musical structure and tempo to develop appropriate colour palettes and visual hierarchies for each programme segment.</p>
       </div>
       <div class="glass" style="padding:22px;">
-        <h3 style="font-family:var(--heading);font-size:.95rem;font-weight:600;color:#f0f4f8;margin-bottom:8px;">Staff Oversight</h3>
-        <p style="color:var(--muted);font-size:.85rem;line-height:1.8;">Allocated staff responsibilities, monitored execution, and maintained operational standards throughout each event.</p>
+        <h3 style="font-family:var(--heading);font-size:.95rem;font-weight:600;color:#f0f4f8;margin-bottom:8px;">FFT Synchronization</h3>
+        <p style="color:var(--muted);font-size:.85rem;line-height:1.8;">Synchronized real-time audio-reactive visual mappings using FFT frequencies with musical rhythm to create an immersive event environment.</p>
       </div>
       <div class="glass" style="padding:22px;">
-        <h3 style="font-family:var(--heading);font-size:.95rem;font-weight:600;color:#f0f4f8;margin-bottom:8px;">Issue Resolution</h3>
-        <p style="color:var(--muted);font-size:.85rem;line-height:1.8;">Coordinated logistics and resolved operational issues promptly to maintain service quality and attendee satisfaction.</p>
+        <h3 style="font-family:var(--heading);font-size:.95rem;font-weight:600;color:#f0f4f8;margin-bottom:8px;">Visual Transitions</h3>
+        <p style="color:var(--muted);font-size:.85rem;line-height:1.8;">Managed visual transitions for more than 2.5 years, strengthening expertise in timing and visual pacing applicable to UI/UX micro-interactions.</p>
       </div>
     </div>
   </section>
@@ -202,10 +266,10 @@ body.mode-51 .system-line span:last-child{color:#c8901a;}
   <section class="reveal glass" style="padding:28px;margin-bottom:24px;">
     <div style="font-family:var(--heading);font-size:.58rem;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;">// Tech Stack & Core Skills</div>
     <div style="display:flex;flex-wrap:wrap;gap:10px;">
-      <span class="tag">Event Planning</span>
-      <span class="tag">Vendor Management</span>
-      <span class="tag">Staff Coordination</span>
-      <span class="tag">Problem Solving</span>
+      <span class="tag">Resolume Avenue</span>
+      <span class="tag">FFT Audio Analysis</span>
+      <span class="tag">Motion Graphics</span>
+      <span class="tag">Visual Mapping</span>
     </div>
   </section>
 
@@ -213,7 +277,7 @@ body.mode-51 .system-line span:last-child{color:#c8901a;}
   <section class="reveal" style="margin-bottom:48px;padding:28px;border:1px solid var(--accent);border-radius:16px;background:var(--glow);position:relative;overflow:hidden;">
     <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);"></div>
     <div style="font-family:var(--heading);font-size:.58rem;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:12px;">// Impact & Result</div>
-    <p style="color:#f0f4f8;line-height:1.85;font-size:.92rem;font-weight:500;">Successfully delivered multiple university events from December 2023 to May 2024 through reliable logistical coordination.</p>
+    <p style="color:#f0f4f8;line-height:1.85;font-size:.92rem;font-weight:500;">Provided more than 2.5 years of consistent live visual direction for Jakarta Praise and associated large-scale events, supporting immersive experiences for thousands of attendees.</p>
   </section>
 
   <!-- BACK -->
@@ -251,10 +315,10 @@ window.addEventListener('scroll',()=>{
   window.addEventListener('mousemove',e=>{mx=(e.clientX-W/2)*.04;my=(e.clientY-H/2)*.04;});
   function rs(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
   rs();onWidthResize(()=>{rs();init();});
-  function init(){stars=[];const starCount=IS_MOBILE?45:100;for(let i=0;i<starCount;i++){const z=Math.random()*3+1;stars.push({x:Math.random()*W*1.2-W*.1,y:Math.random()*H*1.2-H*.1,z,r:(Math.random()*.7+.2)*(z/3+.5),a:Math.random()*.5+.15,tp:Math.random()*6,ts:Math.random()*.018+.004});}}
+  function init(){stars=[];const starCount=IS_MOBILE?45:100;for(let i=0;i<starCount;i++){const z=Math.random()*3+1;stars.push({x:Math.random()*W*1.2-W*.1,y:Math.random()*H*1.2-H*.1,z,r:(Math.random()*.7+.2)*(z/3+.5),a:Math.random()*.5+.15,tp:Math.random()*6,ts:Math.random()*.018+.004,c:Math.random()<.2});}}
   init();
-  let lastFrame=0;function draw(now){requestAnimationFrame(draw);if(document.hidden)return;if(now-lastFrame<33)return;lastFrame=now;const ctx=x;ctx.clearRect(0,0,W,H);tx+=(mx-tx)*.09;ty+=(my-ty)*.09;
-    stars.forEach(s=>{s.tp+=s.ts;const a=s.a*(.5+Math.sin(s.tp)*.5);ctx.beginPath();ctx.arc(s.x-tx*s.z,s.y-ty*s.z,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${a})`;if(s.z>2.5&&!IS_MOBILE){ctx.shadowBlur=4;ctx.shadowColor='rgba(255,255,255,.8)';}else ctx.shadowBlur=0;ctx.fill();ctx.shadowBlur=0;});
+  let lastFrame=0;function draw(now){requestAnimationFrame(draw);if(document.hidden)return;if(now-lastFrame<33)return;lastFrame=now;const ctx=x;ctx.clearRect(0,0,W,H);const isM51=document.body.classList.contains('mode-51');tx+=(mx-tx)*.09;ty+=(my-ty)*.09;
+    stars.forEach(s=>{s.tp+=s.ts;const a=s.a*(.5+Math.sin(s.tp)*.5);ctx.beginPath();ctx.arc(s.x-tx*s.z,s.y-ty*s.z,s.r,0,Math.PI*2);ctx.fillStyle=(isM51&&s.c)?`rgba(0,240,255,${a})`:`rgba(255,255,255,${a})`;if(s.z>2.5&&!IS_MOBILE){ctx.shadowBlur=4;ctx.shadowColor='rgba(255,255,255,.8)';}else ctx.shadowBlur=0;ctx.fill();ctx.shadowBlur=0;});
   }
   requestAnimationFrame(draw);
 })();
@@ -282,11 +346,11 @@ function tog(){
     body.classList.add('sh');
     setTimeout(()=>{bloom.classList.add('on');void bloom.offsetWidth;bloom.classList.add('bl');},180);
     setTimeout(()=>{frac.classList.add('on');void frac.offsetWidth;frac.classList.add('fr');},280);
-    setTimeout(()=>{body.classList.add('mode-51');startWorldTree();document.getElementById('world-tree-canvas').style.opacity='1';stopDokjaText();document.getElementById('dokja-text-canvas').style.opacity='0';stopAurora();document.getElementById('aurora-canvas').style.opacity='0';tl.textContent='51% — JAEHWAN';scramble(ht,'The Operator Behind The Curtain',600);},500);
+    setTimeout(()=>{body.classList.add('mode-51');startWorldTree();document.getElementById('world-tree-canvas').style.opacity='1';stopDokjaText();document.getElementById('dokja-text-canvas').style.opacity='0';stopAurora();document.getElementById('aurora-canvas').style.opacity='0';tl.textContent='51% — JAEHWAN';scramble(ht,'The Visual Weapon',600);},500);
     setTimeout(()=>{body.classList.remove('sh');[frac,bloom].forEach(e=>e.classList.remove('on','fr','bl'));busy=false;},1300);
   }else{
     body.classList.add('sh');
-    setTimeout(()=>{heal.classList.add('on');void heal.offsetWidth;heal.classList.add('hl');body.classList.remove('mode-51');stopWorldTree();document.getElementById('world-tree-canvas').style.opacity='0';startDokjaText();document.getElementById('dokja-text-canvas').style.opacity='1';if(!IS_MOBILE){startAurora();document.getElementById('aurora-canvas').style.opacity='1';}tl.textContent='49% — DOKJA';scramble(ht,'University Event Logistics Coordination',500);},150);
+    setTimeout(()=>{heal.classList.add('on');void heal.offsetWidth;heal.classList.add('hl');body.classList.remove('mode-51');stopWorldTree();document.getElementById('world-tree-canvas').style.opacity='0';startDokjaText();document.getElementById('dokja-text-canvas').style.opacity='1';if(!IS_MOBILE){startAurora();document.getElementById('aurora-canvas').style.opacity='1';}tl.textContent='49% — DOKJA';scramble(ht,'Live Visual & Motion Design',500);},150);
     setTimeout(()=>{body.classList.remove('sh');heal.classList.remove('on','hl');busy=false;},1000);
   }
 }

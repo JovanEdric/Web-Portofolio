@@ -114,6 +114,70 @@ body.mode-51 .system-line span:last-child{color:#c8901a;}
   .neb { animation: none; filter: blur(60px); }
 }
 @media (prefers-reduced-motion: reduce) { .neb { animation: none; } .gl49 { animation: none !important; } }
+
+/* ════════════════════════════════════════════════════════════
+   EKSPERIMEN: COLOR CLASH (Mode 51 / Jaehwan) — sama dengan index.html
+   Merah-oren dominan, penyerang tetap: cyan beracun + magenta.
+   Yang nabrak hanya layer dekoratif; teks isi tetap terbaca.
+   Untuk membatalkan: hapus blok ini sampai "END CLASH".
+════════════════════════════════════════════════════════════ */
+body.mode-51 { --clash-a:#00f0ff; --clash-b:#ff00aa; }
+body.mode-51 ::selection { background:var(--clash-a); color:#000; }
+
+body.mode-51 #prog {
+  background:linear-gradient(90deg,#ff3030 0 62%,var(--clash-a) 62% 78%,var(--clash-b) 78% 100%);
+  box-shadow:0 0 10px rgba(0,240,255,.6);
+}
+
+/* Judul: chromatic split statis (HP), glitch berkala (desktop) */
+body.mode-51 .gl49 { animation:none; text-shadow:2px 0 rgba(0,240,255,.75),-2px 0 rgba(255,0,170,.7); }
+@media (hover:hover) and (min-width:769px) {
+  @keyframes clash-glitch {
+    0%,86%,100% { text-shadow:2px 0 rgba(0,240,255,.75),-2px 0 rgba(255,0,170,.7); }
+    88% { text-shadow:7px 0 rgba(0,240,255,.95),-6px 0 rgba(255,0,170,.9); }
+    90% { text-shadow:-5px 1px rgba(0,240,255,.95),5px -1px rgba(255,0,170,.9); }
+    92% { text-shadow:3px 0 #b6ff00,-3px 0 rgba(255,0,170,.9); }
+    94% { text-shadow:2px 0 rgba(0,240,255,.75),-2px 0 rgba(255,0,170,.7); }
+  }
+  body.mode-51 .gl49 { animation:clash-glitch 4.5s steps(1) infinite; }
+}
+
+/* Kartu kaca: garis atas potongan keras merah | cyan | magenta */
+body.mode-51 .glass { position:relative; overflow:hidden; }
+body.mode-51 .glass::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px; pointer-events:none;
+  background:linear-gradient(90deg,#ff3030 0 58%,var(--clash-a) 58% 80%,var(--clash-b) 80% 100%);
+}
+body.mode-51 .tag { border-left:2px solid var(--clash-a); }
+
+/* Kotak Impact: bayangan keras magenta */
+body.mode-51 main section[style*="border:1px solid var(--accent)"] { box-shadow:6px 6px 0 rgba(255,0,170,.45); }
+
+/* Tombol (Back / IEEE): hover = bayangan keras cyan */
+body.mode-51 main a[style*="border:1px solid var(--accent)"]:hover {
+  border-color:var(--clash-a) !important;
+  box-shadow:4px 4px 0 var(--clash-a),-2px -2px 0 rgba(255,0,170,.7) !important;
+}
+
+/* Label sistem */
+body.mode-51 .scenario-code::after { color:var(--clash-a); }
+
+/* Toggle */
+body.mode-51 #toggle { border-color:var(--clash-b); box-shadow:-4px 0 18px rgba(255,48,48,.45),4px 0 18px rgba(0,240,255,.45); }
+
+/* Nebula kedua "bocor" jadi cyan gelap */
+body.mode-51 .n2 { background:radial-gradient(circle,#00525a,transparent 70%); opacity:.25; }
+
+/* Retakan transisi: chromatic aberration */
+#frac.on svg { filter:drop-shadow(5px 0 0 rgba(0,240,255,.55)) drop-shadow(-5px 0 0 rgba(255,0,170,.55)); }
+
+/* KETERBACAAN: teks yang jatuh di atas World Tree dapat halo gelap;
+   di HP pohonnya diredupkan supaya tidak bersaing dengan teks. */
+body.mode-51 main p, body.mode-51 .scenario-code, body.mode-51 .system-line {
+  text-shadow:0 1px 2px #000,0 0 12px rgba(0,0,0,.9);
+}
+@media (max-width:768px) { body.mode-51 #world-tree-canvas { opacity:.6 !important; } }
+/* ═══════════════════════════ END CLASH ═══════════════════════════ */
 </style>
 </head>
 <body>
@@ -251,10 +315,10 @@ window.addEventListener('scroll',()=>{
   window.addEventListener('mousemove',e=>{mx=(e.clientX-W/2)*.04;my=(e.clientY-H/2)*.04;});
   function rs(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
   rs();onWidthResize(()=>{rs();init();});
-  function init(){stars=[];const starCount=IS_MOBILE?45:100;for(let i=0;i<starCount;i++){const z=Math.random()*3+1;stars.push({x:Math.random()*W*1.2-W*.1,y:Math.random()*H*1.2-H*.1,z,r:(Math.random()*.7+.2)*(z/3+.5),a:Math.random()*.5+.15,tp:Math.random()*6,ts:Math.random()*.018+.004});}}
+  function init(){stars=[];const starCount=IS_MOBILE?45:100;for(let i=0;i<starCount;i++){const z=Math.random()*3+1;stars.push({x:Math.random()*W*1.2-W*.1,y:Math.random()*H*1.2-H*.1,z,r:(Math.random()*.7+.2)*(z/3+.5),a:Math.random()*.5+.15,tp:Math.random()*6,ts:Math.random()*.018+.004,c:Math.random()<.2});}}
   init();
-  let lastFrame=0;function draw(now){requestAnimationFrame(draw);if(document.hidden)return;if(now-lastFrame<33)return;lastFrame=now;const ctx=x;ctx.clearRect(0,0,W,H);tx+=(mx-tx)*.09;ty+=(my-ty)*.09;
-    stars.forEach(s=>{s.tp+=s.ts;const a=s.a*(.5+Math.sin(s.tp)*.5);ctx.beginPath();ctx.arc(s.x-tx*s.z,s.y-ty*s.z,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${a})`;if(s.z>2.5&&!IS_MOBILE){ctx.shadowBlur=4;ctx.shadowColor='rgba(255,255,255,.8)';}else ctx.shadowBlur=0;ctx.fill();ctx.shadowBlur=0;});
+  let lastFrame=0;function draw(now){requestAnimationFrame(draw);if(document.hidden)return;if(now-lastFrame<33)return;lastFrame=now;const ctx=x;ctx.clearRect(0,0,W,H);const isM51=document.body.classList.contains('mode-51');tx+=(mx-tx)*.09;ty+=(my-ty)*.09;
+    stars.forEach(s=>{s.tp+=s.ts;const a=s.a*(.5+Math.sin(s.tp)*.5);ctx.beginPath();ctx.arc(s.x-tx*s.z,s.y-ty*s.z,s.r,0,Math.PI*2);ctx.fillStyle=(isM51&&s.c)?`rgba(0,240,255,${a})`:`rgba(255,255,255,${a})`;if(s.z>2.5&&!IS_MOBILE){ctx.shadowBlur=4;ctx.shadowColor='rgba(255,255,255,.8)';}else ctx.shadowBlur=0;ctx.fill();ctx.shadowBlur=0;});
   }
   requestAnimationFrame(draw);
 })();
